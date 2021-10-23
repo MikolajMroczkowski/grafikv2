@@ -1,2 +1,4 @@
 
 config.php
+assets/bootstrap/
+assets/jquery.js
