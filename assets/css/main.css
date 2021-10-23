@@ -1,0 +1,59 @@
+body {
+    background-color: #aaa;
+    color: #333;
+}
+
+.textInput {
+    height: 500px;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+td {
+    font-size: 25px;
+    width: 5%;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.dzienTygodnia {
+    font-size: 33px;
+    font-weight: bold;
+}
+
+.dzien {
+    cursor: pointer;
+}
+
+th {
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.container {
+    height: 200px;
+    position: relative;
+}
+
+.przyciski {
+    margin: 20px;
+}
+
+.typDnia {
+    font-size: 12px;
+}

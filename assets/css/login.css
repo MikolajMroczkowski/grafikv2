@@ -1,0 +1,63 @@
+body {
+    background-color: #aaa;
+    color: #333;
+    text-align: center;
+}
+
+.login-Box {
+    height: 200px;
+    position: relative;
+}
+
+.loginBox {
+    margin: 0;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.loginBox {
+    text-align: left;
+    background-color: #555;
+    border-radius: 20px;
+    padding: 200px;
+    padding-top: 5%;
+    padding-bottom: 15%;
+}
+
+.passStrange {
+    color: white;
+    font-size: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.loginBox h1 {
+    color: #ddd;
+}
+
+.textInput {
+    margin: 5px;
+    width: 500px;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+}
+
+#passErr {
+    color: #f00;
+}
+
+.error {
+    border: 2px solid red;
+    background-color: rgb(253, 196, 196);
+}
+
+.good {
+    border: 2px solid greenyellow;
+    background-color: rgb(166, 248, 159);
+}

@@ -1,0 +1,48 @@
+.overlay {
+    height: 100%;
+    display: none;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow-x: hidden;
+    color: #eee;
+}
+
+
+/* Position the content inside the overlay */
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+.overlay a {
+    color: white;
+    text-decoration: none;
+}
+
+.choice {
+    font-size: 22px;
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+.choice:hover {
+    color: wheat;
+    font-weight: bold;
+    transition: 0.1s;
+}
