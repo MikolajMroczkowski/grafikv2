@@ -2,3 +2,6 @@
 config.php
 assets/bootstrap/
 assets/jquery.js
+vendor/
+composer.json
+composer.lock
