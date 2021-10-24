@@ -60,6 +60,42 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             }
             echo '</table><br>';
         }
+        $sql = "SELECT * FROM grupyZawodowe";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo '<h2>Grupy Zawodowe</h2><input placeholder="nazwa" id="nazwaGrupy"> <button class="btn btn-success" onclick="createWorkGrup(document.getElementById(`nazwaGrupy`).value)">Utwóż</button><table class="centered adminListing">';
+            echo '<tr>';
+            echo '<th>id</th>';
+            echo '<th>Grupa</th>';
+            echo '<th>Usuń</th>';
+            echo '</tr>';
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                echo '<td>'.$row['id'].'</td>';
+                echo '<td>'.$row['Etykieta'].'</td>';
+                echo '<td><button class="btn btn-danger" onclick="removeWorkGrup('.$row['id'].')">Usuń</buttton></td>';
+                echo '</tr>';
+            }
+            echo '</table><br>';
+        }
+        $sql = "SELECT * FROM typyDni";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo '<h2>Type dni</h2><input placeholder="nazwa" id="typeName"> <button class="btn btn-success" onclick="createType(document.getElementById(`typeName`).value)">Utwóż</button><table class="centered adminListing">';
+            echo '<tr>';
+            echo '<th>id</th>';
+            echo '<th>Grupa</th>';
+            echo '<th>Usuń</th>';
+            echo '</tr>';
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                echo '<td>'.$row['id'].'</td>';
+                echo '<td>'.$row['etykieta'].'</td>';
+                echo '<td><button class="btn btn-danger" onclick="removeDayType('.$row['id'].')">Usuń</buttton></td>';
+                echo '</tr>';
+            }
+            echo '</table><br>';
+        }
         $sql = "SELECT max(logLogowan.timestamp) as time,users.name as imie,users.user as username FROM logLogowan LEFT JOIN users on logLogowan.user = users.id GROUP BY logLogowan.user";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
