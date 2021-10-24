@@ -99,3 +99,26 @@ body {
 .settingTable {
     text-align: right;
 }
+
+.adminListing table,
+.adminListing th,
+.adminListing td {
+    border: solid black 1px;
+}
+
+.adminListing th {
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.adminListing td {
+    padding: 5px;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.adminListing {
+    text-align: left;
+}
