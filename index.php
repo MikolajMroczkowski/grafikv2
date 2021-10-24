@@ -50,11 +50,7 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
         $mounthPrevius = $mounth - 1;
     }
     echo '<div class="centered"><div class="przyciski">';
-    if ($year > 2019) {
-        echo '<a class="btn btn-dark" href="index.php?mounth=' . $mounthPrevius . '&year=' . $yearPrevius . '"><- Previous</a> ';
-    } else {
-        echo 'Dalsze cofanie nie możliwe';
-    }
+    echo '<a class="btn btn-dark" href="index.php?mounth=' . $mounthPrevius . '&year=' . $yearPrevius . '"><- Previous</a> ';
     echo '<a class="btn btn-dark" href="index.php?mounth=' . $mounthNext . '&year=' . $yearNext . '">Next -></a>';
     echo '</div>';
     require_once "config.php";
