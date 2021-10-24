@@ -52,8 +52,10 @@ if($_POST&&$_GET){
         }
         $hash = password_hash($_POST['password'],PASSWORD_BCRYPT);
         $sql = "UPDATE users LEFT JOIN passwordReset on users.id= passwordReset.kod SET password='".$hash."' WHERE passwordReset.kod = '".$_GET['kod']."' AND passwordReset.user=".$_GET['usr'];
-        $result = $conn->query($sql);
+        $conn->query($sql);
+        $conn->query("DELETE FROM passwordReset WHERE kod='".$_GET['kod']."' AND user=".$_GET['usr']);
         $conn->close();
+        echo '<script> showalert("Powodzenie","Zmieniono","alert-info") </script>';
     }
     else{
         echo '<script> showalert("Błąd","Hasła niezgodne","alert-danger") </script>';
