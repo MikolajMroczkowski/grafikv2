@@ -15,5 +15,6 @@ if ($_GET) {
         die('<script> showalert("Błąd bazy","' . $conn->connect_error . '","alert-danger" </script>');
     }
     $conn->query("DELETE from akceptaction WHERE id=" . $_GET['id']);
+    echo 'Usunięto';
     $conn->close();
 }

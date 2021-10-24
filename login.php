@@ -90,7 +90,6 @@ if ($_POST) {
                 document.getElementById("passErr").innerHTML = "Użytkownik nieznany<br>";
                 </script>
                 ';
-                echo $sql;
             }
         }
         $conn->close();

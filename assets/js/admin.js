@@ -3,6 +3,11 @@ function aceptUser(id) {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
         }
     };
     xmlhttp.open("GET", "admAceptUser.php?id=" + id, true);
@@ -14,8 +19,13 @@ function deleteUser(id) {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
         }
     };
-    xmlhttp.open("GET", "admAceptUser.php?id=" + id, true);
+    xmlhttp.open("GET", "admRemoveUser.php?id=" + id, true);
     xmlhttp.send();
 }

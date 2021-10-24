@@ -22,6 +22,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
     <link rel="stylesheet" href="./assets/css/main.css">
     <script src="./assets/jquery.js"></script>
     <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/admin.js"></script>
 </head>
 
 <body>
