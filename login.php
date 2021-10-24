@@ -31,6 +31,8 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
                 <span id='passErr'><br></span>
                 <input type='submit' value="Zaloguj się" class='btn btn-success'>
                 <br>
+                <a href="./forgotPassword.php">Zapomniane Hasło</a>
+                <br>
                 <a href="./register.php">Zarejstruj się</a>
             </form>
         </div>
