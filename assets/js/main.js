@@ -14,7 +14,7 @@ function saveDay(type) {
     xmlhttp.send();
     setTimeout(function() {
         location = location;
-    }, 900)
+    }, 750)
 }
 
 function showOverlay(pday, pmounth, pyear) {
