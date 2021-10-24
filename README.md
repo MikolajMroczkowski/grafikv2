@@ -1,4 +1,4 @@
-# grafik
+# e-grafik
 Program customowy dla mamy C:
 
 ### Wymagania:
