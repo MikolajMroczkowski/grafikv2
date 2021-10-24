@@ -34,6 +34,7 @@ if(!isset($_SESSION['logged'])|| $_SESSION['logged']!=true){
             $conn->query("set names utf8;");
             $sql = "SELECT dni.date as data, typy.etykieta as etykieta FROM daneDni as dni LEFT JOIN typyDni as typy ON dni.typeDay = typy.id WHERE dni.user=".$_SESSION['id']." AND dni.date BETWEEN '".$_GET['from']."' AND '".$_GET['to']."'";
             $result = $conn->query($sql);
+            echo "<strong>".$result->num_rows ."</strong> wyników";
             if ($result->num_rows > 0) {
 
                 echo "<table class='centered listaWpisow'>";
