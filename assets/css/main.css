@@ -122,3 +122,7 @@ body {
 .adminListing {
     text-align: left;
 }
+
+.adminBlokadaUstawienie {
+    width: 75px;
+}
