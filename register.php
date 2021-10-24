@@ -106,7 +106,7 @@ if ($_POST) {
                 $result = $conn->query($sql);
                 if ($result->num_rows == 0) {
                     $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                    if ($conn->query("INSERT INTO akceptaction (user,mail,password,grupaZawodowa,name) VALUES ('" . $_POST['login'] . "','" . $_POST['mail'] . "','" . $hash . "'," . $_POST['grupaZawodowa'] . ",'".$_POST['name']."')") === TRUE) {
+                    if ($conn->query("INSERT INTO akceptaction (user,mail,password,grupaZawodowa,name,isAdmin) VALUES ('" . $_POST['login'] . "','" . $_POST['mail'] . "','" . $hash . "'," . $_POST['grupaZawodowa'] . ",'".$_POST['name']."',0)") === TRUE) {
                         echo '<script>
                         document.getElementById("grupaZawodowa").classList.add("good");
                         document.getElementById("login").classList.add("good");
@@ -130,6 +130,7 @@ if ($_POST) {
                     echo '
         <script>
         document.getElementById("login").classList.add("error");
+        document.getElementById("mail").classList.add("error");
         document.getElementById("passErr").innerHTML = "Nazwa użytkownika lub email zajęty<br>";
         </script>
         ';
