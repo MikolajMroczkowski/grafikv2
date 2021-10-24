@@ -1,12 +1,13 @@
 <?php
 session_start();
-if(!isset($_SESSION['logged'])|| $_SESSION['logged']!=true){
+if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
     header("Location: login.php");
     exit;
 }
 ?>
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,8 +18,53 @@ if(!isset($_SESSION['logged'])|| $_SESSION['logged']!=true){
     <link rel="stylesheet" href="./assets/css/main.css">
     <script src="./assets/jquery.js"></script>
     <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/settings.js"></script>
 </head>
-<body>
-    <?php require "menu.php"; renderMenu("settings") ?>
+
+<body onload="init()">
+    <?php require "menu.php";
+    renderMenu("settings") ?>
+    <div class="centered">
+        <h2>Zmiana Hasła</h2>
+        <table class="centered settingTable">
+            <tr>
+                <td>Stare Hasło:</td>
+                <td><input id="oldPass" type="password"></td>
+            </tr>
+            <tr>
+                <td>Nowe Hasło:</td>
+                <td><input id="newPass" type="password"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><div class="passStrange" id="passPower"><span id="powerInf">Słabe</span></div></td>
+            </tr>
+            <tr>
+                <td>Nowe Hasło jeszcze raz:</td>
+                <td><input id="reNewPass" type="password"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button class="btn btn-info">Zmień</button></td>
+            </tr>
+        </table>
+        <br>
+        <h2>Zmiana E-maila</h2>
+        <table class="centered settingTable">
+            <tr>
+                <td>Aktualny e-mail:</td>
+                <td><?php echo $_SESSION['email']; ?></td>
+            </tr>
+            <tr>
+                <td>Nowy email</td>
+                <td><input id="reNewPass" type="email"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button class="btn btn-info">Zmień</button></td>
+            </tr>
+        </table>
+    </div>
 </body>
+
 </html>
