@@ -36,6 +36,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
         if ($conn->connect_error) {
             die('<script> showalert("Błąd bazy","' . $conn->connect_error . '","alert-danger" </script>');
         }
+        $conn->query("set names utf8;");
         $sql = "SELECT akceptaction.id as id,akceptaction.user as username,akceptaction.name as imie,akceptaction.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from akceptaction LEFT JOIN grupyZawodowe ON grupyZawodowe.id = akceptaction.grupaZawodowa";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -56,7 +57,31 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<td>'.$row['imie'].'</td>';
                 echo '<td>'.$row['mail'].'</td>';
                 echo '<td>'.$row['grupaZawodowa'].'</td>';
-                echo '<th><button onclick="aceptUser('.$row['id'].')" class="btn btn-success">Akceptuj</button></th>';
+                echo '<th><button onclick="aceptRequest('.$row['id'].')" class="btn btn-success">Akceptuj</button></th>';
+                echo '<th><button onclick="deleteRequest('.$row['id'].')" class="btn btn-danger">Usuń</button></th>';
+                echo '</tr>';
+            }
+            echo '</tabel>';
+        }
+        $sql = "SELECT users.id as id,users.user as username,users.name as imie,users.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from users LEFT JOIN grupyZawodowe ON grupyZawodowe.id = users.grupaZawodowa";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo '<h2>Aktualni użytkownicy</h2><table class="centered adminListing">';
+            echo '<tr>';
+            echo '<th>Id</th>';
+            echo '<th>Nazwa Użytkownika</th>';
+            echo '<th>Imię</th>';
+            echo '<th>e-mail</th>';
+            echo '<th>Grupa Zawodowa</th>';
+            echo '<th>Remove</th>';
+            echo '</tr>';
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                echo '<td>'.$row['id'].'</td>';
+                echo '<td>'.$row['username'].'</td>';
+                echo '<td>'.$row['imie'].'</td>';
+                echo '<td>'.$row['mail'].'</td>';
+                echo '<td>'.$row['grupaZawodowa'].'</td>';
                 echo '<th><button onclick="deleteUser('.$row['id'].')" class="btn btn-danger">Usuń</button></th>';
                 echo '</tr>';
             }
