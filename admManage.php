@@ -29,9 +29,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
     renderMenu("adminManage") ?>
     <div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
     <div class="centered">
-        <h2>Użytkownicy do akceptacji</h2>
         <?php
-
         require_once "config.php";
         $conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
         if ($conn->connect_error) {
@@ -40,7 +38,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
         $sql = "SELECT akceptaction.id as id,akceptaction.user as username,akceptaction.name as imie,akceptaction.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from akceptaction LEFT JOIN grupyZawodowe ON grupyZawodowe.id = akceptaction.grupaZawodowa";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            echo '<table class="centered adminListing">';
+            echo '<h2>Użytkownicy do akceptacji</h2><table class="centered adminListing">';
             echo '<tr>';
             echo '<th>Id</th>';
             echo '<th>Nazwa Użytkownika</th>';
@@ -57,13 +55,11 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<td>'.$row['imie'].'</td>';
                 echo '<td>'.$row['mail'].'</td>';
                 echo '<td>'.$row['grupaZawodowa'].'</td>';
-                echo '<th><button class="btn btn-secoundary">✅</button></th>';
-                echo '<th><button class="btn btn-secoundary">❌</button></th>';
+                echo '<th><button onclick="aceptUser('.$row['id'].')" class="btn btn-success">Akceptuj</button></th>';
+                echo '<th><button onclick="deleteUser('.$row['id'].')" class="btn btn-danger">Usuń</button></th>';
                 echo '</tr>';
             }
             echo '</tabel>';
-        } else {
-            echo '<p>Brak użytkowników do akceptacji</p>';
         }
         ?>
 </body>
