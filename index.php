@@ -22,6 +22,7 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
 </head>
 
 <body>
+<div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
     <?php require "menu.php";
     require "getUserCal.php";
     renderMenu("edit");
@@ -49,16 +50,42 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
         $mounthPrevius = $mounth - 1;
     }
     echo '<div class="centered"><div class="przyciski">';
-    echo '<a class="btn btn-dark" href="index.php?mounth=' . $mounthPrevius . '&year=' . $yearPrevius . '"><- Previous</a> ';
+    if ($year > 2019) {
+        echo '<a class="btn btn-dark" href="index.php?mounth=' . $mounthPrevius . '&year=' . $yearPrevius . '"><- Previous</a> ';
+    } else {
+        echo 'Dalsze cofanie nie możliwe';
+    }
     echo '<a class="btn btn-dark" href="index.php?mounth=' . $mounthNext . '&year=' . $yearNext . '">Next -></a>';
     echo '</div>';
-    $c = new Calendar($year, $mounth, true);
+    require_once "config.php";
+    $conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
+    if ($conn->connect_error) {
+        die('Błąd odczytu danych');
+    }
+    $edit = true;
+    $conn->query("set names utf8;");
+    $sql = "SELECT date as dataBlokady FROM blokada WHERE month=" . $mounth . " AND year=" . $year;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $dzienBlokady = strtotime($row['dataBlokady']);
+            date_default_timezone_set('Europe/Warsaw');
+            $date = strtotime(date('Y-m-d'));
+            if($dzienBlokady<$date){
+                $edit = false;
+            }
+        }
+    }
+    $conn->close();
+    $c = new Calendar($year, $mounth, $edit);
     echo '</div>';
+
     ?>
     <div id="choseDayTypeOverlay" class="overlay">
         <a href="javascript:void(0)" class="closebtn" onclick="closeOverlay()">&times;</a>
         <div class="overlay-content">
             <h2>Edytujesz dzień <span id="nowEditing"></span></h2>
+            <span class='choice' onclick='saveDay("REMOVE");'>Wyczyść Dzień</span><br>
             <?php
             require_once "config.php";
             $conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
@@ -66,21 +93,18 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
                 die('Błąd odczytu danych');
             }
             $conn->query("set names utf8;");
-            $sql = "SELECT s1.etykieta as etykieta ,s1.class as class,s1.id as id from typyDni as s1 LEFT JOIN uprawnieniaDniDlaGrup as s2 on s1.id = s2.typDnia WHERE s2.grupa = ".$_SESSION['grupaZawodowa'];
+            $sql = "SELECT s1.etykieta as etykieta,s1.id as id from typyDni as s1 LEFT JOIN uprawnieniaDniDlaGrup as s2 on s1.id = s2.typDnia WHERE s2.grupa = " . $_SESSION['grupaZawodowa'];
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<span class='choice' onclick=''>".$row['etykieta']."</span><br>";
-
+                    echo "<span class='choice' onclick='saveDay(".$row['id'].");'>" . $row['etykieta'] . "</span><br>";
                 }
-            }
-            else{
+            } else {
                 echo 'baza typów jest pusta<br>Skontaktoj się z administratorem systemu';
             }
-            $conn -> close();
+            $conn->close();
             ?>
         </div>
-
     </div>
 </body>
 

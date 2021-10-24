@@ -36,8 +36,12 @@ td {
     font-weight: bold;
 }
 
-.dzien {
+.dzienEdit {
     cursor: pointer;
+}
+
+.dzienNoEdit {
+    cursor: not-allowed;
 }
 
 th {
@@ -56,4 +60,8 @@ th {
 
 .typDnia {
     font-size: 12px;
+}
+
+#alert_placeholder {
+    margin: 20px;
 }
