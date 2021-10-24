@@ -59,6 +59,7 @@ if ($_POST) {
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                $conn->query("INSERT INTO logLogowan (user,timestamp) values (".$row['id'].",now())");
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['username'] = $row['user'];
                 $_SESSION['email'] = $row['mail'];
