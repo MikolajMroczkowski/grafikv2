@@ -68,10 +68,11 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
             date_default_timezone_set('Europe/Warsaw');
             $date = strtotime(date('Y-m-d'));
             $edit = !($dzienBlokady < $date);
+            echo "Blokada: <strong>".date('d',$dzienBlokady)."-".date('m',$dzienBlokady)."-".date('Y',$dzienBlokady)."</strong>";
         }
     } else {
-        $monthA = $mounth;
-        $yearA = $year;
+        $monthA = $mounthPrevius;
+        $yearA = $yearPrevius;
         $dayBlokady = 20;
         $ostatni = strtotime($dayBlokady . "-" . $monthA . "-" . $yearA);
         $dzienSlowo =  date('l', $ostatni);
@@ -103,6 +104,7 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
         date_default_timezone_set('Europe/Warsaw');
         $date = strtotime(date('Y-m-d'));
         $edit = !($dzienBlokady < $date);
+        echo "Blokada: <strong>".date('d',$dzienBlokady)."-".date('m',$dzienBlokady)."-".date('Y',$dzienBlokady)."</strong>";
     }
     $conn->close();
     $c = new Calendar($year, $mounth, $edit);
