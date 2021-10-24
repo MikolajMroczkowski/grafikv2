@@ -50,3 +50,40 @@ function init() {
     pass.addEventListener('input', inputHandler);
     pass.addEventListener('propertychange', inputHandler);
 }
+
+function changePass(oldPass, newPass, reNewPass) {
+    var http = new XMLHttpRequest();
+    var url = 'changePassword.php';
+    var params = 'oldPass=' + oldPass + '&newPass=' + newPass + '&reNewPass=' + reNewPass;
+    http.open('POST', url, true);
+
+    //Send the proper header information along with the request
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    http.onreadystatechange = function() { //Call a function when the state changes.
+        if (http.readyState == 4 && http.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+        }
+    }
+    http.send(params);
+}
+
+function changeMail(mail) {
+    var http = new XMLHttpRequest();
+    var url = 'changeMail.php';
+    var params = 'mail=' + mail;
+    http.open('POST', url, true);
+
+    //Send the proper header information along with the request
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    http.onreadystatechange = function() { //Call a function when the state changes.
+        if (http.readyState == 4 && http.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(function() {
+                location = location
+            }, 500)
+        }
+    }
+    http.send(params);
+}

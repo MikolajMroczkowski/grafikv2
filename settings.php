@@ -22,6 +22,7 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
 </head>
 
 <body onload="init()">
+<div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
     <?php require "menu.php";
     renderMenu("settings") ?>
     <div class="centered">
@@ -45,7 +46,7 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
             </tr>
             <tr>
                 <td></td>
-                <td><button class="btn btn-info">Zmień</button></td>
+                <td><button onclick="changePass(document.getElementById('oldPass').value,document.getElementById('newPass').value,document.getElementById('reNewPass').value)" class="btn btn-info">Zmień</button></td>
             </tr>
         </table>
         <br>
@@ -57,11 +58,11 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
             </tr>
             <tr>
                 <td>Nowy email</td>
-                <td><input id="reNewPass" type="email"></td>
+                <td><input id="mail" type="email"></td>
             </tr>
             <tr>
                 <td></td>
-                <td><button class="btn btn-info">Zmień</button></td>
+                <td><button onclick="changeMail(document.getElementById('mail').value)" class="btn btn-info">Zmień</button></td>
             </tr>
         </table>
     </div>
