@@ -22,7 +22,7 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
 </head>
 
 <body>
-<div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
+    <div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
     <?php require "menu.php";
     require "getUserCal.php";
     renderMenu("edit");
@@ -71,10 +71,42 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
             $dzienBlokady = strtotime($row['dataBlokady']);
             date_default_timezone_set('Europe/Warsaw');
             $date = strtotime(date('Y-m-d'));
-            if($dzienBlokady<$date){
-                $edit = false;
-            }
+            $edit = !($dzienBlokady < $date);
         }
+    } else {
+        $monthA = $mounth;
+        $yearA = $year;
+        $dayBlokady = 20;
+        $ostatni = strtotime($dayBlokady . "-" . $monthA . "-" . $yearA);
+        $dzienSlowo =  date('l', $ostatni);
+        switch (substr($dzienSlowo, 0, 3)) {
+            case "Mon":
+                $blank = 3;
+                break;
+            case "Tue":
+                $blank = 4;
+                break;
+            case "Wed":
+                $blank = 5;
+                break;
+            case "Thu":
+                $blank = 6;
+                break;
+            case "Fri":
+                $blank = 0;
+                break;
+            case "Sat":
+                $blank = 1;
+                break;
+            case "Sun":
+                $blank = 2;
+                break;
+        }
+        $dayBlokady -= $blank;
+        $dzienBlokady = strtotime($dayBlokady . "-" . $monthA . "-" . $yearA);
+        date_default_timezone_set('Europe/Warsaw');
+        $date = strtotime(date('Y-m-d'));
+        $edit = !($dzienBlokady < $date);
     }
     $conn->close();
     $c = new Calendar($year, $mounth, $edit);
@@ -97,7 +129,7 @@ if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<span class='choice' onclick='saveDay(".$row['id'].");'>" . $row['etykieta'] . "</span><br>";
+                    echo "<span class='choice' onclick='saveDay(" . $row['id'] . ");'>" . $row['etykieta'] . "</span><br>";
                 }
             } else {
                 echo 'baza typów jest pusta<br>Skontaktoj się z administratorem systemu';

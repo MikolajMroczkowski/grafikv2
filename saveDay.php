@@ -22,13 +22,47 @@ if ($_GET) {
                 $date = strtotime(date('Y-m-d'));
                 $blokada = $dzienBlokady < $date;
             }
+        } else {
+            $monthA = $_GET['mounth'];
+            $yearA = $_GET['year'];
+            $dayBlokady = 20;
+            $ostatni = strtotime($dayBlokady . "-" . $monthA . "-" . $yearA);
+            $dzienSlowo =  date('l', $ostatni);
+            switch (substr($dzienSlowo, 0, 3)) {
+                case "Mon":
+                    $blank = 3;
+                    break;
+                case "Tue":
+                    $blank = 4;
+                    break;
+                case "Wed":
+                    $blank = 5;
+                    break;
+                case "Thu":
+                    $blank = 6;
+                    break;
+                case "Fri":
+                    $blank = 0;
+                    break;
+                case "Sat":
+                    $blank = 1;
+                    break;
+                case "Sun":
+                    $blank = 2;
+                    break;
+            }
+            $dayBlokady -= $blank;
+            $dzienBlokady = strtotime($dayBlokady . "-" . $monthA . "-" . $yearA);
+            date_default_timezone_set('Europe/Warsaw');
+            $date = strtotime(date('Y-m-d'));
+            $blokada = $dzienBlokady < $date;
         }
         if (!$blokada) {
             if ($_GET['typDnia'] == 'REMOVE') {
                 $conn->query("DELETE FROM daneDni WHERE date = '" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
                 echo "Usunięto <strong>" . $_GET['day'] . "." . $_GET['mounth'] . "." . $_GET['year'] . "</strong>";
             } else {
-                $result3 = $conn->query("SELECT * from daneDni where user=".$_SESSION['id']." AND date='".$_GET['year']."-".$_GET['mounth']."-".$_GET['day']."'");
+                $result3 = $conn->query("SELECT * from daneDni where user=" . $_SESSION['id'] . " AND date='" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
                 if ($result3->num_rows == 0) {
                     $result2 = $conn->query("SELECT s1.etykieta as etykieta,s1.id as id from typyDni as s1 LEFT JOIN uprawnieniaDniDlaGrup as s2 on s1.id = s2.typDnia WHERE s2.grupa=" . $_SESSION['workGroup'] . " AND s1.id =" . $_GET['typDnia']);
                     if ($result2->num_rows > 0) {
