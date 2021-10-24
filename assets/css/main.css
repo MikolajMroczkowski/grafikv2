@@ -7,22 +7,27 @@ body {
     height: 500px;
 }
 
-table {
+.kalendarz table {
     border-collapse: collapse;
     margin-top: 30px;
 }
 
-table,
-th,
-td {
+.kalendarz table,
+.kalendarz th,
+.kalendarz td {
     border: 1px solid black;
     padding: 5px;
     text-align: center;
 }
 
-td {
+.kalendarz td {
     font-size: 25px;
     width: 130px;
+}
+
+.kalendarz th {
+    font-weight: bold;
+    font-size: 36px;
 }
 
 .centered {
@@ -44,11 +49,6 @@ td {
     cursor: not-allowed;
 }
 
-th {
-    font-weight: bold;
-    font-size: 36px;
-}
-
 .container {
     height: 200px;
     position: relative;
@@ -68,4 +68,21 @@ th {
 
 .dzienEdited {
     background-color: rgba(144, 255, 240, 0.575);
+}
+
+.listaWpisow th {
+    font-size: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.listaWpisow td {
+    padding: 5px;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.listaWpisow {
+    text-align: left;
 }

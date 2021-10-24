@@ -20,5 +20,38 @@ if(!isset($_SESSION['logged'])|| $_SESSION['logged']!=true){
 </head>
 <body>
     <?php require "menu.php"; renderMenu("view") ?>
+    <div class="centered">
+        <form class="przyciski">
+            Od: <input name="from" type="date"> Do: <input name="to" type="date"> <input type="submit" class="btn btn-success" value="Wyświetl">
+        </form>
+        <?php
+        if($_GET){
+            require_once "config.php";
+            $conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
+            if ($conn->connect_error) {
+                die('błąd bazy: ' . $conn->connect_error . '"');
+            }
+            $conn->query("set names utf8;");
+            $sql = "SELECT dni.date as data, typy.etykieta as etykieta FROM daneDni as dni LEFT JOIN typyDni as typy ON dni.typeDay = typy.id WHERE dni.user=".$_SESSION['id']." AND dni.date BETWEEN '".$_GET['from']."' AND '".$_GET['to']."'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+
+                echo "<table class='centered listaWpisow'>";
+                echo "<tr><th>Data</th><th>Wpis</th></tr>";
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>".$row['data']."</td>";
+                    echo "<td>".$row['etykieta']."</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+            }
+            else{
+
+            }
+            $conn->close();
+        }
+        ?>
+    </div>
 </body>
 </html>

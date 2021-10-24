@@ -44,7 +44,7 @@ class Calendar
 
         $days_in_month = cal_days_in_month(0, $month, $year);
 
-        echo '<table class="centered">';
+        echo '<table class="centered kalendarz">';
 
         echo '<tr>';
         echo '<th colspan=60>' . $title . ' ' . $year . '</th>';
