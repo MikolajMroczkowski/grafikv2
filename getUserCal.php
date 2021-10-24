@@ -80,19 +80,21 @@ class Calendar
 
             echo '<td ';
             if ($edit) {
-                echo 'class="dzienEdit" onclick="showOverlay(' . $day_num . ',' . $month . ',' . $year . ')"';
+                echo 'onclick="showOverlay(' . $day_num . ',' . $month . ',' . $year . ')" class="dzienEdit';
             }
             else{
-                echo 'class="dzienNoEdit"';
+                echo 'class="dzienNoEdit';
             }
-            echo '> ' . $day_num . '<br><span class="typDnia">';
             $sql = "SELECT days.etykieta as typ from daneDni as dates LEFT JOIN typyDni as days ON days.id = dates.typeDay WHERE dates.user=".$_SESSION['id']." AND dates.date = '".$year."-".$month."-".$day_num."';";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+                    echo ' dzienEdited"';
+                    echo '> ' . $day_num . '<br><span class="typDnia">';
                     echo $row['typ'];
                 }
             } else {
+                echo '"> ' . $day_num . '<br><span class="typDnia">';
                 echo 'Brak';
             }
 

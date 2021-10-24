@@ -22,7 +22,7 @@ td {
 
 td {
     font-size: 25px;
-    width: 5%;
+    width: 130px;
 }
 
 .centered {
@@ -64,4 +64,8 @@ th {
 
 #alert_placeholder {
     margin: 20px;
+}
+
+.dzienEdited {
+    background-color: rgba(144, 255, 240, 0.575);
 }
