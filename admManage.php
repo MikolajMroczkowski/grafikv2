@@ -57,11 +57,11 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<td>'.$row['imie'].'</td>';
                 echo '<td>'.$row['mail'].'</td>';
                 echo '<td>'.$row['grupaZawodowa'].'</td>';
-                echo '<th><button onclick="aceptRequest('.$row['id'].')" class="btn btn-success">Akceptuj</button></th>';
-                echo '<th><button onclick="deleteRequest('.$row['id'].')" class="btn btn-danger">Usuń</button></th>';
+                echo '<td><button onclick="aceptRequest('.$row['id'].')" class="btn btn-success">Akceptuj</button></td>';
+                echo '<td><button onclick="deleteRequest('.$row['id'].')" class="btn btn-danger">Usuń</button></td>';
                 echo '</tr>';
             }
-            echo '</tabel>';
+            echo '</table>';
         }
         $sql = "SELECT users.id as id,users.user as username,users.name as imie,users.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from users LEFT JOIN grupyZawodowe ON grupyZawodowe.id = users.grupaZawodowa";
         $result = $conn->query($sql);
@@ -82,11 +82,32 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<td>'.$row['imie'].'</td>';
                 echo '<td>'.$row['mail'].'</td>';
                 echo '<td>'.$row['grupaZawodowa'].'</td>';
-                echo '<th><button onclick="deleteUser('.$row['id'].')" class="btn btn-danger">Usuń</button></th>';
+                echo '<td><button onclick="deleteUser('.$row['id'].')" class="btn btn-danger">Usuń</button></td>';
                 echo '</tr>';
             }
-            echo '</tabel>';
+            echo '</table>';
         }
+        $sql = "SELECT max(logLogowan.timestamp) as time,users.name as imie,users.user as username FROM logLogowan LEFT JOIN users on logLogowan.user = users.id GROUP BY logLogowan.user";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo '<h2>Ostatnie logowania</h2><table class="centered adminListing">';
+            echo '<tr>';
+            echo '<th>Data</th>';
+            echo '<th>Użytkownik</th>';
+            echo '<th>Imię</th>';
+            echo '</tr>';
+            while ($row = $result->fetch_assoc()) {
+                $czas = new DateTime($row['time'],new DateTimeZone('UTC'));
+                $czas -> setTimezone(new DateTimeZone('Europe/Warsaw'));
+                echo '<tr>';
+                echo '<td>'.$czas->format('d-m-Y H:i:s').'</td>';
+                echo '<td>'.$row['username'].'</td>';
+                echo '<td>'.$row['imie'].'</td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        }
+        $conn->close();
         ?>
 </body>
 
