@@ -12,7 +12,7 @@ if ($_GET) {
     require_once "config.php";
     $conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
     if ($conn->connect_error) {
-        die('<script> showalert("Błąd bazy","' . $conn->connect_error . '","alert-danger" </script>');
+        die('Błąd bazy:' . $conn->connect_error);
     }
     $conn->query("INSERT into blokada (year,date,month) values (".$_GET['year'].",'".$_GET['date']."',".$_GET['month'].")");
     $conn->close();
