@@ -25,12 +25,14 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
     <script src="./assets/js/admin.js"></script>
 </head>
 
-<body>
+<body onload="readDivs()">
     <?php require "menu.php";
     renderMenu("adminManage") ?>
     <div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
     <div class="centered">
-        <h2>Blokady</h2>
+        <h2>Blokady <img id="blokadyDivClick" onclick="toogleDiv('blokadyDiv','blokadyDivClick')" src="./assets/icons/expand_more_black_24dp.svg"></h2>
+        
+        <div style="display: none;" id='blokadyDiv'>
         <input id="dataBlokady" type="date"><input class='adminBlokadaUstawienie' type="numeric" id="month" placeholder="miesiąc"><input class='adminBlokadaUstawienie' type="numeric" id="year" placeholder="rok"> 
         <button onclick="changeLock(document.getElementById('month').value,document.getElementById('year').value,document.getElementById('dataBlokady').value)" class="btn btn-success">Ustaw</button>
         <?php
@@ -60,10 +62,11 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             }
             echo '</table><br>';
         }
+        echo "</div>";
         $sql = "SELECT * FROM grupyZawodowe";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            echo '<h2>Grupy Zawodowe</h2><input placeholder="nazwa" id="nazwaGrupy"> <button class="btn btn-success" onclick="createWorkGrup(document.getElementById(`nazwaGrupy`).value)">Utwóż</button><table class="centered adminListing">';
+            echo '<h2>Grupy Zawodowe <img id="grupyZawodoweClick" onclick="toogleDiv(`grupyZawodowe`,`grupyZawodoweClick`)" src="./assets/icons/expand_more_black_24dp.svg"></h2><div style="display: none;" id="grupyZawodowe"><input placeholder="nazwa" id="nazwaGrupy"> <button class="btn btn-success" onclick="createWorkGrup(document.getElementById(`nazwaGrupy`).value)">Utwóż</button><table class="centered adminListing">';
             echo '<tr>';
             echo '<th>id</th>';
             echo '<th>Grupa</th>';
@@ -76,12 +79,12 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<td><button class="btn btn-danger" onclick="removeWorkGrup('.$row['id'].')">Usuń</buttton></td>';
                 echo '</tr>';
             }
-            echo '</table><br>';
+            echo '</table><br></div>';
         }
         $sql = "SELECT * FROM typyDni";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            echo '<h2>Type dni</h2><input placeholder="nazwa" id="typeName"> <button class="btn btn-success" onclick="createType(document.getElementById(`typeName`).value)">Utwóż</button><table class="centered adminListing">';
+            echo '<h2>Type dni <img id="typyDniClick" onclick="toogleDiv(`typyDni`,`typyDniClick`)" src="./assets/icons/expand_more_black_24dp.svg"></h2><div style="display: none;" id="typyDni"><input placeholder="nazwa" id="typeName"> <button class="btn btn-success" onclick="createType(document.getElementById(`typeName`).value)">Utwóż</button><table class="centered adminListing">';
             echo '<tr>';
             echo '<th>id</th>';
             echo '<th>Grupa</th>';
@@ -94,12 +97,12 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<td><button class="btn btn-danger" onclick="removeDayType('.$row['id'].')">Usuń</buttton></td>';
                 echo '</tr>';
             }
-            echo '</table><br>';
+            echo '</table><br></div>';
         }
         $sql = "SELECT max(logLogowan.timestamp) as time,users.name as imie,users.user as username FROM logLogowan LEFT JOIN users on logLogowan.user = users.id GROUP BY logLogowan.user";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            echo '<h2>Ostatnie logowania</h2><table class="centered adminListing">';
+            echo '<h2>Ostatnie logowania <img id="lastLoginClick" onclick="toogleDiv(`lastLogin`,`lastLoginClick`)" src="./assets/icons/expand_more_black_24dp.svg"></h2><div id="lastLogin" style="display: none;"><table class="centered adminListing">';
             echo '<tr>';
             echo '<th>Data</th>';
             echo '<th>Użytkownik</th>';
@@ -114,12 +117,12 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<td>'.$row['imie'].'</td>';
                 echo '</tr>';
             }
-            echo '</table><br>';
+            echo '</table><br></div>';
         }
         $sql = "SELECT akceptaction.id as id,akceptaction.user as username,akceptaction.name as imie,akceptaction.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from akceptaction LEFT JOIN grupyZawodowe ON grupyZawodowe.id = akceptaction.grupaZawodowa";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            echo '<h2>Użytkownicy do akceptacji</h2><table class="centered adminListing">';
+            echo '<h2>Użytkownicy do akceptacji <img id="doAkceptacjiClick" onclick="toogleDiv(`doAkceptacji`,`doAkceptacjiClick`)" src="./assets/icons/expand_more_black_24dp.svg"></h2><div id="doAkceptacji" style="display: none;"><table class="centered adminListing">';
             echo '<tr>';
             echo '<th>Id</th>';
             echo '<th>Nazwa Użytkownika</th>';
@@ -145,7 +148,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
         $sql = "SELECT users.id as id,users.user as username,users.name as imie,users.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from users LEFT JOIN grupyZawodowe ON grupyZawodowe.id = users.grupaZawodowa";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            echo '<h2>Aktualni użytkownicy</h2><table class="centered adminListing">';
+            echo '<h2>Aktualni użytkownicy <img id="usersClick" onclick="toogleDiv(`users`,`usersClick`)" src="./assets/icons/expand_more_black_24dp.svg"></h2><div id="users" style="display: none;"><table class="centered adminListing">';
             echo '<tr>';
             echo '<th>Id</th>';
             echo '<th>Nazwa Użytkownika</th>';
@@ -164,7 +167,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<td><button onclick="deleteUser('.$row['id'].')" class="btn btn-danger">Usuń</button></td>';
                 echo '</tr>';
             }
-            echo '</table><br>';
+            echo '</table><br></div>';
         }
         $conn->close();
         ?>
