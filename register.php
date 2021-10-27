@@ -29,6 +29,8 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
                 <br>
                 <input name="name" id="name" class="textInput" placeholder=" Imię">
                 <br>
+                <input name="surname" id="surname" class="textInput" placeholder=" Nazwisko">
+                <br>
                 <input name="mail" id="mail" class="textInput" placeholder=" E-mail">
                 <br>
                 <select name="grupaZawodowa" id="grupaZawodowa" class="textInput">
@@ -73,6 +75,7 @@ if ($_POST) {
             document.getElementById("grupaZawodowa").classList.add("error");
                         document.getElementById("login").classList.add("error");
                         document.getElementById("name").classList.add("error");
+                        document.getElementById("surname").classList.add("error");
                         document.getElementById("mail").classList.add("error");
                         document.getElementById("password").classList.add("error");
                         document.getElementById("repassword").classList.add("error");
@@ -97,6 +100,7 @@ if ($_POST) {
                     die('<script> document.getElementById("grupaZawodowa").classList.add("error");
                     document.getElementById("login").classList.add("error");
                     document.getElementById("name").classList.add("error");
+                    document.getElementById("surname").classList.add("error");
                     document.getElementById("mail").classList.add("error");
                     document.getElementById("password").classList.add("error");
                     document.getElementById("repassword").classList.add("error");
@@ -106,11 +110,12 @@ if ($_POST) {
                 $result = $conn->query($sql);
                 if ($result->num_rows == 0) {
                     $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                    if ($conn->query("INSERT INTO akceptaction (user,mail,password,grupaZawodowa,name,isAdmin) VALUES ('" . $_POST['login'] . "','" . $_POST['mail'] . "','" . $hash . "'," . $_POST['grupaZawodowa'] . ",'".$_POST['name']."',0)") === TRUE) {
+                    if ($conn->query("INSERT INTO akceptaction (user,mail,password,grupaZawodowa,name,surname,isAdmin) VALUES ('" . $_POST['login'] . "','" . $_POST['mail'] . "','" . $hash . "'," . $_POST['grupaZawodowa'] . ",'".$_POST['name']."','".$_POST['surname']."',0)") === TRUE) {
                         echo '<script>
                         document.getElementById("grupaZawodowa").classList.add("good");
                         document.getElementById("login").classList.add("good");
                         document.getElementById("name").classList.add("good");
+                        document.getElementById("surname").classList.add("error");
                         document.getElementById("mail").classList.add("good");
                         document.getElementById("password").classList.add("good");
                         document.getElementById("repassword").classList.add("good");
@@ -121,6 +126,7 @@ if ($_POST) {
                         document.getElementById("grupaZawodowa").classList.add("error");
                         document.getElementById("login").classList.add("error");
                         document.getElementById("name").classList.add("error");
+                        document.getElementById("surname").classList.add("error");
                         document.getElementById("mail").classList.add("error");
                         document.getElementById("password").classList.add("error");
                         document.getElementById("repassword").classList.add("error");
@@ -144,6 +150,7 @@ if ($_POST) {
         document.getElementById("grupaZawodowa").classList.add("error");
                         document.getElementById("login").classList.add("error");
                         document.getElementById("name").classList.add("error");
+                        document.getElementById("surname").classList.add("error");
                         document.getElementById("mail").classList.add("error");
                         document.getElementById("password").classList.add("error");
                         document.getElementById("repassword").classList.add("error");

@@ -185,7 +185,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             }
             echo '</table><br>';
         }
-        $sql = "SELECT users.id as id,users.user as username,users.name as imie,users.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from users LEFT JOIN grupyZawodowe ON grupyZawodowe.id = users.grupaZawodowa";
+        $sql = "SELECT users.id as id,users.user as username,users.name as imie,users.surname as nazwisko,users.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from users LEFT JOIN grupyZawodowe ON grupyZawodowe.id = users.grupaZawodowa";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo '<h2 class="click" onclick="toogleDiv(`users`,`usersClick`)">Aktualni użytkownicy <img id="usersClick" src="./assets/icons/expand_more_black_24dp.svg"></h2><div id="users" style="display: none;"><table class="centered adminListing">';
@@ -193,6 +193,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '<th>Id</th>';
             echo '<th>Nazwa Użytkownika</th>';
             echo '<th>Imię</th>';
+            echo '<th>Nazwisko</th>';
             echo '<th>e-mail</th>';
             echo '<th>Grupa Zawodowa</th>';
             echo '<th>Remove</th>';
@@ -202,6 +203,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<td>'.$row['id'].'</td>';
                 echo '<td>'.$row['username'].'</td>';
                 echo '<td>'.$row['imie'].'</td>';
+                echo '<td>'.$row['nazwisko'].'</td>';
                 echo '<td>'.$row['mail'].'</td>';
                 echo '<td>'.$row['grupaZawodowa'].'</td>';
                 echo '<td><button onclick="deleteUser('.$row['id'].')" class="btn btn-danger">Usuń</button></td>';
