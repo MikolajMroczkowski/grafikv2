@@ -126,3 +126,7 @@ body {
 .adminBlokadaUstawienie {
     width: 75px;
 }
+
+.click {
+    cursor: pointer;
+}
