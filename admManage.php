@@ -159,24 +159,27 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             }
             echo '</table><br></div>';
         }
-        $sql = "SELECT akceptaction.id as id,akceptaction.user as username,akceptaction.name as imie,akceptaction.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from akceptaction LEFT JOIN grupyZawodowe ON grupyZawodowe.id = akceptaction.grupaZawodowa";
+        $sql = "SELECT akceptaction.id as id,akceptaction.user as username,akceptaction.name as imie,akceptaction.surname as nazwisko,akceptaction.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from akceptaction LEFT JOIN grupyZawodowe ON grupyZawodowe.id = akceptaction.grupaZawodowa";
         $result = $conn->query($sql);
+        echo '<h2 class="click" onclick="toogleDiv(`doAkceptacji`,`doAkceptacjiClick`)">Użytkownicy do akceptacji <img id="doAkceptacjiClick" src="./assets/icons/expand_more_black_24dp.svg"></h2><div id="doAkceptacji" style="display: none;">';
         if ($result->num_rows > 0) {
-            echo '<h2 class="click" onclick="toogleDiv(`doAkceptacji`,`doAkceptacjiClick`)">Użytkownicy do akceptacji <img id="doAkceptacjiClick" src="./assets/icons/expand_more_black_24dp.svg"></h2><div id="doAkceptacji" style="display: none;"><table class="centered adminListing">';
+            echo '<table class="centered adminListing">';
             echo '<tr>';
             echo '<th>Id</th>';
             echo '<th>Nazwa Użytkownika</th>';
             echo '<th>Imię</th>';
+            echo '<th>Nazwisko</th>';
             echo '<th>e-mail</th>';
             echo '<th>Grupa Zawodowa</th>';
-            echo '<th>Akcept</th>';
-            echo '<th>Remove</th>';
+            echo '<th>Akceptuj</th>';
+            echo '<th>usuń</th>';
             echo '</tr>';
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
                 echo '<td>'.$row['id'].'</td>';
                 echo '<td>'.$row['username'].'</td>';
                 echo '<td>'.$row['imie'].'</td>';
+                echo '<td>'.$row['nazwisko'].'</td>';
                 echo '<td>'.$row['mail'].'</td>';
                 echo '<td>'.$row['grupaZawodowa'].'</td>';
                 echo '<td><button onclick="aceptRequest('.$row['id'].')" class="btn btn-success">Akceptuj</button></td>';
@@ -185,6 +188,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             }
             echo '</table><br>';
         }
+        echo '</div>';
         $sql = "SELECT users.id as id,users.user as username,users.name as imie,users.surname as nazwisko,users.mail as mail,grupyZawodowe.Etykieta as grupaZawodowa from users LEFT JOIN grupyZawodowe ON grupyZawodowe.id = users.grupaZawodowa";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -196,7 +200,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '<th>Nazwisko</th>';
             echo '<th>e-mail</th>';
             echo '<th>Grupa Zawodowa</th>';
-            echo '<th>Remove</th>';
+            echo '<th>Usuń</th>';
             echo '</tr>';
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';

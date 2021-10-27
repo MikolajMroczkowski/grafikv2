@@ -115,7 +115,7 @@ if ($_POST) {
                         document.getElementById("grupaZawodowa").classList.add("good");
                         document.getElementById("login").classList.add("good");
                         document.getElementById("name").classList.add("good");
-                        document.getElementById("surname").classList.add("error");
+                        document.getElementById("surname").classList.add("good");
                         document.getElementById("mail").classList.add("good");
                         document.getElementById("password").classList.add("good");
                         document.getElementById("repassword").classList.add("good");
