@@ -153,3 +153,35 @@ function removeLock(id) {
     xmlhttp.open("GET", "admRemoveLock.php?id=" + id, true);
     xmlhttp.send();
 }
+
+function removeDayType(id) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admRemoveType.php?id=" + id, true);
+    xmlhttp.send();
+}
+
+function createType(name) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admCreateType.php?name=" + name, true);
+    xmlhttp.send();
+}

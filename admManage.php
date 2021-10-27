@@ -99,7 +99,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             }
             echo '</table><br></div>';
         }
-        $sql = "SELECT uprawnieniaDniDlaGrup.id AS uprawnienieId, grupyZawodowe.id AS grupaId, grupyZawodowe.Etykieta AS nazwaGrupy, typyDni.id AS typId, typyDni.etykieta AS nazwaTypu FROM uprawnieniaDniDlaGrup LEFT JOIN typyDni ON uprawnieniaDniDlaGrup.typDnia = typyDni.id LEFT JOIN grupyZawodowe ON uprawnieniaDniDlaGrup.grupa = grupyZawodowe.id;";
+        $sql = "SELECT * from typyDni";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo '<h2 class="click" onclick="toogleDiv(`uprawnieniaGrup`,`uprawnieniaGrupClick`)">Uprawnienia grup do dni <img id="uprawnieniaGrupClick" src="./assets/icons/expand_more_black_24dp.svg"></h2><div style="display: none;" id="uprawnieniaGrup">';
@@ -128,7 +128,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '<th>Grupa (ID)</th>';
             echo '<th>Usuń</th>';
             echo '</tr>';
-            $sql = "SELECT uprawnieniaDniDlaGrup.id AS uprawnienieId, grupyZawodowe.id AS grupaId, grupyZawodowe.Etykieta AS nazwaGrupy, typyDni.id AS typId, typyDni.etykieta AS nazwaTypu FROM uprawnieniaDniDlaGrup LEFT JOIN typyDni ON uprawnieniaDniDlaGrup.typDnia = typyDni.id LEFT JOIN grupyZawodowe ON uprawnieniaDniDlaGrup.grupa = grupyZawodowe.id;";
+            $sql = "SELECT uprawnieniaDniDlaGrup.id AS uprawnienieId, grupyZawodowe.id AS grupaId, grupyZawodowe.Etykieta AS nazwaGrupy, typyDni.id AS typId, typyDni.etykieta AS nazwaTypu FROM uprawnieniaDniDlaGrup LEFT JOIN typyDni ON uprawnieniaDniDlaGrup.typDnia = typyDni.id LEFT JOIN grupyZawodowe ON uprawnieniaDniDlaGrup.grupa = grupyZawodowe.id ORDER BY uprawnieniaDniDlaGrup.id DESC";
         $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
