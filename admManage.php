@@ -25,7 +25,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
     <script src="./assets/js/admin.js"></script>
 </head>
 
-<body onload="readDivs()">
+<body onload="loadAdm()">
     <?php require "menu.php";
     renderMenu("adminManage") ?>
     <div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
@@ -84,14 +84,14 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
         $sql = "SELECT * FROM typyDni";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            echo '<h2 class="click" onclick="toogleDiv(`typyDni`,`typyDniClick`)">Typy dni <img id="typyDniClick" src="./assets/icons/expand_more_black_24dp.svg"></h2><div style="display: none;" id="typyDni"><input placeholder="nazwa" id="typeName"> <button class="btn btn-success" onclick="createType(document.getElementById(`typeName`).value)">Utwóż</button><table class="centered adminListing">';
+            echo '<h2 class="click" onclick="toogleDiv(`typyDni`,`typyDniClick`)">Typy dni <img id="typyDniClick" src="./assets/icons/expand_more_black_24dp.svg"></h2><div style="display: none;" id="typyDni"><input placeholder="nazwa" id="typeName"> <input type="color" placeholder="color" id="colorPicker"> <button class="btn btn-success" onclick="createType(document.getElementById(`typeName`).value,document.getElementById(`colorPicker`).value)">Utwóż</button><br><span id="testKoloru">Test</span><table class="centered adminListing">';
             echo '<tr>';
             echo '<th>id</th>';
             echo '<th>Grupa</th>';
             echo '<th>Usuń</th>';
             echo '</tr>';
             while ($row = $result->fetch_assoc()) {
-                echo '<tr>';
+                echo '<tr style="background: '.$row['kolor'].';">';
                 echo '<td>'.$row['id'].'</td>';
                 echo '<td>'.$row['etykieta'].'</td>';
                 echo '<td><button class="btn btn-danger" onclick="removeDayType('.$row['id'].')">Usuń</buttton></td>';

@@ -14,7 +14,7 @@ if ($_GET) {
     if ($conn->connect_error) {
         die('Błąd bazy:' . $conn->connect_error);
     }
-    $conn->query("INSERT into typyDni (Etykieta) values ('".$_GET['name']."')");
+    $conn->query("INSERT into typyDni (Etykieta,kolor) values ('".$_GET['name']."','".$_GET['color']."')");
     echo 'Utworzono';
     $conn->close();
 }

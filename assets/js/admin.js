@@ -170,7 +170,7 @@ function removeDayType(id) {
     xmlhttp.send();
 }
 
-function createType(name) {
+function createType(name, color) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -182,6 +182,16 @@ function createType(name) {
             );
         }
     };
-    xmlhttp.open("GET", "admCreateType.php?name=" + name, true);
+    xmlhttp.open("GET", "admCreateType.php?name=" + name + "&color=" + color, true);
     xmlhttp.send();
+}
+
+function loadAdm() {
+    var colorPicker = document.getElementById('colorPicker');
+    var colorTester = document.getElementById('testKoloru');
+    colorPicker.addEventListener('change', function() {
+        colorTester.style.background = colorPicker.value;
+        console.log(colorPicker.value)
+    })
+    readDivs()
 }
