@@ -81,7 +81,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
             echo '<option value="' . $row['id'] . '">';
-            echo $row['user']." (".$row['name']." ".$row['surname'].")";
+            echo $row['user'] . " (" . $row['name'] . " " . $row['surname'] . ")";
             echo '</option>';
         }
         echo '</select>';
@@ -89,6 +89,33 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
         ?>
         <input id="row" placeholder="Wiersz" style="width:75px"> <button onclick="createExportForUser(document.getElementById(`user`).options[document.getElementById(`user`).selectedIndex].value,document.getElementById(`row`).value)" class='btn btn-success'>Dodaj</button>
         <?php
+        require_once "config.php";
+        $conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
+        if ($conn->connect_error) {
+            die('<script> showalert("Błąd bazy","' . $conn->connect_error . '","alert-danger" </script>');
+        }
+        $conn->query("set names utf8;");
+        $sql = "SELECT users.user as username, users.name as imie, users.surname as nazwisko, usersTableRow.row as row, usersTableRow.id as id from usersTableRow LEFT JOIN users ON users.id = usersTableRow.user";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo '<table class="centered adminListing">';
+            echo '<tr>';
+            echo '<th>Użytkownik</th>';
+            echo '<th>Wiersz</th>';
+            echo '<th>Usuń</th>';
+            echo '</tr>';
+            while ($row = $result->fetch_assoc()) {
+                $czas = new DateTime($row['time'], new DateTimeZone('UTC'));
+                $czas->setTimezone(new DateTimeZone('Europe/Warsaw'));
+                echo '<tr>';
+                echo '<td>' . $row['username'] . " (" . $row['imie'] . " " . $row['nazwisko'] . ")" . '</td>';
+                echo '<td>' . $row['row'] . '</td>';
+                echo '<td><button onclick="removeExportForUser('.$row['id'].')" class="btn btn-danger">Usuń</button></td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        }
+        $conn->close();
         ?>
     </div>
 </body>

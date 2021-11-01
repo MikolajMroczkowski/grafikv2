@@ -11,3 +11,11 @@ function init() {
     document.getElementById('mc').value = month;
     document.getElementById('year').value = year;
 }
+
+function removeExportForUser(id) {
+
+}
+
+function createExportForUser(user, row) {
+
+}
