@@ -16,5 +16,5 @@ if ($_GET) {
     }
     $conn->query("INSERT into grupyZawodowe (Etykieta) values ('".$_GET['name']."')");
     $conn->close();
-    echo "ok";
+    echo "Dodano";
 }
