@@ -179,7 +179,7 @@ function createType(name, color) {
             setTimeout(
                 function() {
                     location = location
-                }, 4000
+                }, 1000
             );
         }
     };
@@ -211,7 +211,7 @@ function createWorkGrup(name) {
             setTimeout(
                 function() {
                     location = location
-                }, 4000
+                }, 1000
             );
         }
     };
