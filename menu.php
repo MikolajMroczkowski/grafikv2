@@ -43,7 +43,7 @@ echo '
             <a class="nav-link '.$_mode[3].'" href="admManage.php">Zarządzaj Aplikacją</a>
             </li>
             <li class="nav-item">
-          <a class="nav-link '.$_mode[4].'" href="admView.php">Przeglądaj Wpisy</a>
+          <a class="nav-link '.$_mode[4].'" href="admView.php">Eksportuj Wpisy</a>
           </li>';
           }
           echo'
