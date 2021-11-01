@@ -171,6 +171,7 @@ function removeDayType(id) {
 }
 
 function createType(name, color) {
+    color = color.substring(1);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -178,7 +179,7 @@ function createType(name, color) {
             setTimeout(
                 function() {
                     location = location
-                }, 1000
+                }, 4000
             );
         }
     };
