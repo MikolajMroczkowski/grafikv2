@@ -13,9 +13,33 @@ function init() {
 }
 
 function removeExportForUser(id) {
-
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admRemoveExportForUser.php?id=" + id, true);
+    xmlhttp.send();
 }
 
 function createExportForUser(user, row) {
-
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admCreateExportForUser.php?user=" + user + "&row=" + row, true);
+    xmlhttp.send();
 }

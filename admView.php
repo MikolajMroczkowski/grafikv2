@@ -28,6 +28,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
 <body onload="init()">
     <?php require "menu.php";
     renderMenu("adminView") ?>
+    <div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
     <div class="centered">
         <h2>Eksport</h2>
         <input value="" id="mc" placeholder="Miesiąc"><input value="" id="year" placeholder="Rok">
@@ -110,7 +111,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '<tr>';
                 echo '<td>' . $row['username'] . " (" . $row['imie'] . " " . $row['nazwisko'] . ")" . '</td>';
                 echo '<td>' . $row['row'] . '</td>';
-                echo '<td><button onclick="removeExportForUser('.$row['id'].')" class="btn btn-danger">Usuń</button></td>';
+                echo '<td><button onclick="removeExportForUser(' . $row['id'] . ')" class="btn btn-danger">Usuń</button></td>';
                 echo '</tr>';
             }
             echo '</table>';
