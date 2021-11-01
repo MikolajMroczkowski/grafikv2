@@ -134,7 +134,7 @@ function addLock(month, year, data) {
             );
         }
     };
-    xmlhttp.open("GET", "admAddeLock.php?month=" + month + "&year=" + year + "&date=" + data, true);
+    xmlhttp.open("GET", "admCreateLock.php?month=" + month + "&year=" + year + "&date=" + data, true);
     xmlhttp.send();
 }
 
