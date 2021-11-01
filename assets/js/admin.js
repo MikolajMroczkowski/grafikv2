@@ -170,7 +170,7 @@ function removeDayType(id) {
     xmlhttp.send();
 }
 
-function createType(name, color) {
+function createType(name, kod, color) {
     color = color.substring(1);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -183,7 +183,7 @@ function createType(name, color) {
             );
         }
     };
-    xmlhttp.open("GET", "admCreateType.php?name=" + name + "&color=" + color, true);
+    xmlhttp.open("GET", "admCreateType.php?name=" + name + "&kod=" + kod + "&color=" + color, true);
     xmlhttp.send();
 }
 
