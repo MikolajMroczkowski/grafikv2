@@ -1,5 +1,5 @@
 # e-grafik
-Program customowy dla mamy C:
+Program customowy dla mamy :D
 
 ### Wymagania:
 
