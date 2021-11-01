@@ -187,6 +187,38 @@ function createType(name, color) {
     xmlhttp.send();
 }
 
+function removeWorkGrup(id) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admRemoveGroup.php?id=" + id, true);
+    xmlhttp.send();
+}
+
+function createWorkGrup(name) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 4000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admCreateGroup.php?name=" + name, true);
+    xmlhttp.send();
+}
+
 function loadAdm() {
     var colorPicker = document.getElementById('colorPicker');
     var colorTester = document.getElementById('testKoloru');

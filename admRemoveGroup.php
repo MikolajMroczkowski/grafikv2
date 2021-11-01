@@ -14,7 +14,8 @@ if ($_GET) {
     if ($conn->connect_error) {
         die('Błąd bazy:' . $conn->connect_error);
     }
-    $conn->query("INSERT into typyDni (Etykieta,kolor) values ('".$_GET['name']."','#".$_GET['color']."')");
+    $conn->query("DELETE FROM grupyZawodowe WHERE id=".$_GET['id']);
+    $conn->query("DELETE FROM uprawnieniaDniDlaGrup WHERE grupa=".$_GET['id']);
+    echo 'Usunięto';
     $conn->close();
-    echo "Dodano";
 }
