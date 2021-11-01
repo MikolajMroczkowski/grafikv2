@@ -219,6 +219,39 @@ function createWorkGrup(name) {
     xmlhttp.send();
 }
 
+function removeAuthorization(id) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admRemoveAuthorization.php?id=" + id, true);
+    xmlhttp.send();
+
+}
+
+function createAuthorization(typ, grupa) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admCreateAuthorization.php?typ=" + typ + "&grupa=" + grupa, true);
+    xmlhttp.send();
+}
+
 function loadAdm() {
     var colorPicker = document.getElementById('colorPicker');
     var colorTester = document.getElementById('testKoloru');

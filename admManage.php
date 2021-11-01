@@ -124,7 +124,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 echo '</option>';
             }
             echo '</select>';
-            echo '<button class="btn btn-success" onclick="createType(document.getElementById(`typeName`).value)">Utwóż</button><table class="centered adminListing">';
+            echo '<button class="btn btn-success" onclick="createAuthorization(document.getElementById(`dzien`).options[document.getElementById(`dzien`).selectedIndex].value,document.getElementById(`grupa`).options[document.getElementById(`grupa`).selectedIndex].value)">Utwóż</button><table class="centered adminListing">';
             echo '<tr>';
             echo '<th>Dzień (ID)</th>';
             echo '<th>Grupa (ID)</th>';
