@@ -76,7 +76,7 @@ if ($_GET) {
             $spreadsheet->getActiveSheet()->setCellValue($cell, $row['wartosc']);
             $spreadsheet->getActiveSheet()->getStyle($cell)->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                ->getStartColor()->setRGB("f08989");
+                ->getStartColor()->setRGB("ff9980");
         }
     } else {
     }
