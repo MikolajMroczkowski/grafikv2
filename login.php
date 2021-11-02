@@ -29,7 +29,7 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
             Przechodządz dalej akceptujesz <a href="regulamin.php">Regulamin</a>, <a href="politykaPrywatnosci.php">Politykę prywatności</a> i <a href="rodo.php">RODO</a><br>
             Akceptujesz także używanie przez nas plików cookie w stopniu wymaganym do funkcjonowania aplikacji
             <br>
-            <button onclick='document.getElementById("myNav").style.width = "0%"; setCookie(`ciasteczka`,`true`,31)' class="btn btn-info">Akceptuje</button>
+            <button onclick='document.getElementById("myNav").style.width = "0%"; setCookie(`ciasteczka`,`true`,31)' class="btn btn-info">Akceptuję</button>
         </div>
 
     </div>

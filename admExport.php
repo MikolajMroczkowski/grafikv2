@@ -60,7 +60,7 @@ if ($_GET) {
         if ($blank == 4 || $blank == 5) {
             $spreadsheet->getActiveSheet()->getStyle($litery[$x + 1] . '1:' . $litery[$x + 1] . '40')->getFill()
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                ->getStartColor()->setRGB("616161");
+                ->getStartColor()->setRGB("ebebeb");
         }
     }
     $conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
