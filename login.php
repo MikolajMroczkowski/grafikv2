@@ -20,7 +20,19 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
     <script src="./assets/js/login.js"></script>
 </head>
 
-<body>
+<body onload='var Regulamin = getCookie("ciasteczka");
+    if (Regulamin != "true") {
+        document.getElementById("myNav").style.width = "100%";
+    }'>
+    <div id="myNav" class="overlay">
+        <div class="overlay-content">
+            Przechodządz dalej akceptujesz <a href="regulamin.php">Regulamin</a>, <a href="politykaPrywatnosci.php">Politykę prywatności</a> i <a href="rodo.php">RODO</a><br>
+            Akceptujesz także używanie przez nas plików cookie w stopniu wymaganym do funkcjonowania aplikacji
+            <br>
+            <button onclick='document.getElementById("myNav").style.width = "0%"; setCookie(`ciasteczka`,`true`,31)' class="btn btn-info">Akceptuje</button>
+        </div>
+
+    </div>
     <div class="loginBox">
         <div class="login-Box">
             <form action="" method="POST">
@@ -59,7 +71,7 @@ if ($_POST) {
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $conn->query("INSERT INTO logLogowan (user,timestamp) values (".$row['id'].",now())");
+                $conn->query("INSERT INTO logLogowan (user,timestamp) values (" . $row['id'] . ",now())");
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['username'] = $row['user'];
                 $_SESSION['email'] = $row['mail'];

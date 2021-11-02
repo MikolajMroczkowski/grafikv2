@@ -5,3 +5,6 @@ assets/jquery.js
 vendor/
 composer.json
 composer.lock
+politykaPrywatnosci.php
+regulamin.php
+rodo.php

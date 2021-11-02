@@ -18,7 +18,7 @@ if ($_GET) {
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $conn->query("INSERT into users (user,name,password,mail,grupaZawodowa,isAdmin,surname) values ('" . $row['user'] . "','" . $row['name'] . "','" . $row['password'] . "','" . $row['mail'] . "'," . $row['grupaZawodowa'] . ",0,'".$_POST['surname']."')");
+            $conn->query("INSERT into users (user,name,password,mail,grupaZawodowa,isAdmin,surname) values ('" . $row['user'] . "','" . $row['name'] . "','" . $row['password'] . "','" . $row['mail'] . "'," . $row['grupaZawodowa'] . ",0,'".$row['surname']."')");
             $conn->query("DELETE from akceptaction WHERE id=" . $_GET['id']);
             echo 'Akceptowano';
         }

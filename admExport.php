@@ -30,7 +30,7 @@ if ($_GET) {
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
     }
     $mcPL = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
-    $litery = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH");
+    $litery = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH","AI","AJ","AK");
     for ($x = 1; $x < 31; $x++) {
         $dataKomurki = strtotime($x . "." . $mc . "." . $year);
         $day_of_week = date('D', $dataKomurki);
@@ -67,6 +67,7 @@ if ($_GET) {
     if ($conn->connect_error) {
         die('błąd');
     }
+    $conn->query("set names utf8;");
     $sql = "SELECT typyDni.kod as wartosc, DAY(daneDni.date) as kolumna,  usersTableRow.wiersz as wiersz FROM daneDni LEFT JOIN usersTableRow ON daneDni.user = usersTableRow.user LEFT JOIN typyDni ON daneDni.typeDay=typyDni.id WHERE daneDni.date BETWEEN '1." . $mc . "." . $year . "' AND '31." . $mc . "." . $year . "'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -77,6 +78,15 @@ if ($_GET) {
                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()->setRGB("f08989");
         }
+    } else {
+    }
+    $sql = "SELECT users.name AS imie, users.surname AS nazwisko, users.user AS username, usersTableRow.wiersz AS wiersz from usersTableRow LEFT JOIN users ON users.id = usersTableRow.user";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $cell = $litery[36] . $row['wiersz'];
+            $spreadsheet->getActiveSheet()->setCellValue($cell, $row['username']." (".$row['imie']." ".$row['nazwisko'].")");
+        } 
     } else {
     }
     $conn->close();
