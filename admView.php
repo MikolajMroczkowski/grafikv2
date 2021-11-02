@@ -96,7 +96,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             die('<script> showalert("Błąd bazy","' . $conn->connect_error . '","alert-danger" </script>');
         }
         $conn->query("set names utf8;");
-        $sql = "SELECT users.user as username, users.name as imie, users.surname as nazwisko, usersTableRow.row as row, usersTableRow.id as id from usersTableRow LEFT JOIN users ON users.id = usersTableRow.user";
+        $sql = "SELECT users.user as username, users.name as imie, users.surname as nazwisko, usersTableRow.wiersz as wiersz, usersTableRow.id as id from usersTableRow LEFT JOIN users ON users.id = usersTableRow.user";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo '<table class="centered adminListing">';
@@ -110,7 +110,7 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
                 $czas->setTimezone(new DateTimeZone('Europe/Warsaw'));
                 echo '<tr>';
                 echo '<td>' . $row['username'] . " (" . $row['imie'] . " " . $row['nazwisko'] . ")" . '</td>';
-                echo '<td>' . $row['row'] . '</td>';
+                echo '<td>' . $row['wiersz'] . '</td>';
                 echo '<td><button onclick="removeExportForUser(' . $row['id'] . ')" class="btn btn-danger">Usuń</button></td>';
                 echo '</tr>';
             }

@@ -14,7 +14,7 @@ if ($_GET) {
     if ($conn->connect_error) {
         die('Błąd bazy:' . $conn->connect_error);
     }
-    $conn->query("INSERT into usersTableRow (user,row) values (".$_GET['user'].",".$_GET['row'].")");
+    $conn->query("INSERT into usersTableRow (user,wiersz) values (".$_GET['user'].",".$_GET['row'].")");
     $conn->close();
     echo "Dodano";
 }

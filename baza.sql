@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Nov 01, 2021 at 11:44 PM
+-- Generation Time: Nov 02, 2021 at 12:13 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.20
 
@@ -63,6 +63,37 @@ CREATE TABLE `daneDni` (
   `typeDay` int(11) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `daneDni`
+--
+
+INSERT INTO `daneDni` (`id`, `user`, `typeDay`, `date`) VALUES
+(61, 1, 1, '2021-12-03'),
+(63, 1, 10, '2021-12-18'),
+(64, 1, 10, '2021-12-11'),
+(65, 1, 9, '2021-12-04'),
+(66, 1, 3, '2021-12-06'),
+(67, 1, 4, '2021-12-07'),
+(68, 1, 3, '2021-12-08'),
+(72, 1, 8, '2021-12-17'),
+(74, 1, 9, '2021-12-25'),
+(75, 1, 8, '2021-12-16'),
+(78, 1, 1, '2021-12-10'),
+(79, 1, 7, '2021-12-27'),
+(80, 1, 7, '2021-12-28'),
+(81, 1, 7, '2021-12-29'),
+(82, 1, 3, '2021-12-30'),
+(83, 1, 4, '2021-12-31'),
+(84, 1, 1, '2021-12-24'),
+(85, 1, 2, '2021-12-22'),
+(86, 1, 1, '2021-12-23'),
+(87, 1, 1, '2021-12-21'),
+(89, 1, 3, '2021-12-15'),
+(90, 1, 1, '2021-12-14'),
+(91, 1, 2, '2021-12-13'),
+(92, 1, 6, '2021-12-20'),
+(93, 1, 7, '2021-12-01');
 
 -- --------------------------------------------------------
 
@@ -149,45 +180,6 @@ CREATE TABLE `uprawnieniaDniDlaGrup` (
   `typDnia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `uprawnieniaDniDlaGrup`
---
-
-INSERT INTO `uprawnieniaDniDlaGrup` (`id`, `grupa`, `typDnia`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4),
-(6, 1, 6),
-(7, 1, 7),
-(8, 1, 9),
-(9, 1, 10),
-(10, 2, 1),
-(11, 2, 2),
-(12, 2, 3),
-(13, 2, 4),
-(15, 2, 6),
-(16, 2, 7),
-(17, 2, 9),
-(18, 2, 10),
-(19, 3, 1),
-(20, 3, 2),
-(21, 3, 3),
-(22, 3, 4),
-(24, 3, 6),
-(25, 3, 7),
-(26, 3, 9),
-(27, 3, 10),
-(28, 4, 1),
-(29, 4, 2),
-(30, 4, 3),
-(31, 4, 4),
-(33, 4, 6),
-(34, 4, 7),
-(35, 4, 8),
-(36, 4, 9),
-(37, 4, 10);
-
 -- --------------------------------------------------------
 
 --
@@ -214,7 +206,7 @@ CREATE TABLE `users` (
 CREATE TABLE `usersTableRow` (
   `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `row` int(11) NOT NULL
+  `wiersz` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -301,7 +293,7 @@ ALTER TABLE `blokada`
 -- AUTO_INCREMENT for table `daneDni`
 --
 ALTER TABLE `daneDni`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `grupyZawodowe`
@@ -331,7 +323,7 @@ ALTER TABLE `typyDni`
 -- AUTO_INCREMENT for table `uprawnieniaDniDlaGrup`
 --
 ALTER TABLE `uprawnieniaDniDlaGrup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
