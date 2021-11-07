@@ -87,3 +87,35 @@ function changeMail(mail) {
     }
     http.send(params);
 }
+
+function createNewToken() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "newToken.php", true);
+    xmlhttp.send();
+}
+
+function removeToken(id) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "removeToken.php?id=" + id, true);
+    xmlhttp.send();
+}

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0-rc1
 -- https://www.phpmyadmin.net/
 --
--- Host: db
--- Generation Time: Nov 02, 2021 at 12:13 AM
--- Server version: 5.7.36
--- PHP Version: 7.4.20
+-- Host: localhost
+-- Generation Time: Nov 07, 2021 at 10:16 PM
+-- Server version: 8.0.27-0ubuntu0.20.04.1
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `grafik`
+-- Database: `grafikTest`
 --
 
 -- --------------------------------------------------------
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `akceptaction` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `user` text NOT NULL,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci NOT NULL,
   `surname` text CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci NOT NULL,
   `password` text NOT NULL,
   `mail` text NOT NULL,
-  `grupaZawodowa` int(11) NOT NULL,
-  `isAdmin` int(11) NOT NULL
+  `grupaZawodowa` int NOT NULL,
+  `isAdmin` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -45,9 +45,9 @@ CREATE TABLE `akceptaction` (
 --
 
 CREATE TABLE `blokada` (
-  `id` int(11) NOT NULL,
-  `year` int(11) NOT NULL,
-  `month` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `year` int NOT NULL,
+  `month` int NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -58,42 +58,11 @@ CREATE TABLE `blokada` (
 --
 
 CREATE TABLE `daneDni` (
-  `id` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `typeDay` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user` int NOT NULL,
+  `typeDay` int NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `daneDni`
---
-
-INSERT INTO `daneDni` (`id`, `user`, `typeDay`, `date`) VALUES
-(61, 1, 1, '2021-12-03'),
-(63, 1, 10, '2021-12-18'),
-(64, 1, 10, '2021-12-11'),
-(65, 1, 9, '2021-12-04'),
-(66, 1, 3, '2021-12-06'),
-(67, 1, 4, '2021-12-07'),
-(68, 1, 3, '2021-12-08'),
-(72, 1, 8, '2021-12-17'),
-(74, 1, 9, '2021-12-25'),
-(75, 1, 8, '2021-12-16'),
-(78, 1, 1, '2021-12-10'),
-(79, 1, 7, '2021-12-27'),
-(80, 1, 7, '2021-12-28'),
-(81, 1, 7, '2021-12-29'),
-(82, 1, 3, '2021-12-30'),
-(83, 1, 4, '2021-12-31'),
-(84, 1, 1, '2021-12-24'),
-(85, 1, 2, '2021-12-22'),
-(86, 1, 1, '2021-12-23'),
-(87, 1, 1, '2021-12-21'),
-(89, 1, 3, '2021-12-15'),
-(90, 1, 1, '2021-12-14'),
-(91, 1, 2, '2021-12-13'),
-(92, 1, 6, '2021-12-20'),
-(93, 1, 7, '2021-12-01');
 
 -- --------------------------------------------------------
 
@@ -102,7 +71,7 @@ INSERT INTO `daneDni` (`id`, `user`, `typeDay`, `date`) VALUES
 --
 
 CREATE TABLE `grupyZawodowe` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `Etykieta` text CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -123,8 +92,8 @@ INSERT INTO `grupyZawodowe` (`id`, `Etykieta`) VALUES
 --
 
 CREATE TABLE `logLogowan` (
-  `id` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user` int NOT NULL,
   `timestamp` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -135,10 +104,23 @@ CREATE TABLE `logLogowan` (
 --
 
 CREATE TABLE `passwordReset` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `kod` text NOT NULL,
-  `user` int(11) NOT NULL
+  `user` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tokens`
+--
+
+CREATE TABLE `tokens` (
+  `id` int NOT NULL,
+  `user` int NOT NULL,
+  `token` text NOT NULL,
+  `grupaZawodowa` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -147,10 +129,10 @@ CREATE TABLE `passwordReset` (
 --
 
 CREATE TABLE `typyDni` (
-  `id` int(11) NOT NULL,
-  `etykieta` text COLLATE utf8mb4_polish_ci NOT NULL,
-  `kod` text COLLATE utf8mb4_polish_ci NOT NULL,
-  `kolor` text COLLATE utf8mb4_polish_ci NOT NULL
+  `id` int NOT NULL,
+  `etykieta` text CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci NOT NULL,
+  `kod` text CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci NOT NULL,
+  `kolor` text CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
@@ -175,10 +157,49 @@ INSERT INTO `typyDni` (`id`, `etykieta`, `kod`, `kolor`) VALUES
 --
 
 CREATE TABLE `uprawnieniaDniDlaGrup` (
-  `id` int(11) NOT NULL,
-  `grupa` int(11) NOT NULL,
-  `typDnia` int(11) NOT NULL
+  `id` int NOT NULL,
+  `grupa` int NOT NULL,
+  `typDnia` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `uprawnieniaDniDlaGrup`
+--
+
+INSERT INTO `uprawnieniaDniDlaGrup` (`id`, `grupa`, `typDnia`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 9),
+(9, 1, 10),
+(10, 2, 1),
+(11, 2, 2),
+(12, 2, 3),
+(13, 2, 4),
+(15, 2, 6),
+(16, 2, 7),
+(17, 2, 9),
+(18, 2, 10),
+(19, 3, 1),
+(20, 3, 2),
+(21, 3, 3),
+(22, 3, 4),
+(24, 3, 6),
+(25, 3, 7),
+(26, 3, 9),
+(27, 3, 10),
+(28, 4, 1),
+(29, 4, 2),
+(30, 4, 3),
+(31, 4, 4),
+(33, 4, 6),
+(34, 4, 7),
+(35, 4, 8),
+(36, 4, 9),
+(37, 4, 10);
 
 -- --------------------------------------------------------
 
@@ -187,14 +208,14 @@ CREATE TABLE `uprawnieniaDniDlaGrup` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `user` text NOT NULL,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci NOT NULL,
   `surname` text CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci NOT NULL,
   `password` text NOT NULL,
   `mail` text NOT NULL,
-  `grupaZawodowa` int(11) NOT NULL,
-  `isAdmin` int(11) NOT NULL
+  `grupaZawodowa` int NOT NULL,
+  `isAdmin` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -204,9 +225,9 @@ CREATE TABLE `users` (
 --
 
 CREATE TABLE `usersTableRow` (
-  `id` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `wiersz` int(11) NOT NULL
+  `id` int NOT NULL,
+  `user` int NOT NULL,
+  `wiersz` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -250,6 +271,12 @@ ALTER TABLE `passwordReset`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tokens`
+--
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `typyDni`
 --
 ALTER TABLE `typyDni`
@@ -281,61 +308,67 @@ ALTER TABLE `usersTableRow`
 -- AUTO_INCREMENT for table `akceptaction`
 --
 ALTER TABLE `akceptaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `blokada`
 --
 ALTER TABLE `blokada`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `daneDni`
 --
 ALTER TABLE `daneDni`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `grupyZawodowe`
 --
 ALTER TABLE `grupyZawodowe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `logLogowan`
 --
 ALTER TABLE `logLogowan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `passwordReset`
 --
 ALTER TABLE `passwordReset`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tokens`
+--
+ALTER TABLE `tokens`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `typyDni`
 --
 ALTER TABLE `typyDni`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `uprawnieniaDniDlaGrup`
 --
 ALTER TABLE `uprawnieniaDniDlaGrup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `usersTableRow`
 --
 ALTER TABLE `usersTableRow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

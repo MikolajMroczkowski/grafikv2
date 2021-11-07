@@ -20,16 +20,20 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
     <script src="./assets/js/login.js"></script>
 </head>
 
-<body onload='var Regulamin = getCookie("ciasteczka");
-    if (Regulamin != "true") {
-        document.getElementById("myNav").style.width = "100%";
-    }'>
+<body onload='initLogin()'>
     <div id="myNav" class="overlay">
         <div class="overlay-content">
             Przechodządz dalej akceptujesz <a href="regulamin.php">Regulamin</a>, <a href="politykaPrywatnosci.php">Politykę prywatności</a> i <a href="rodo.php">RODO</a><br>
             Akceptujesz także używanie przez nas plików cookie w stopniu wymaganym do funkcjonowania aplikacji
             <br>
             <button onclick='document.getElementById("myNav").style.width = "0%"; setCookie(`ciasteczka`,`true`,31)' class="btn btn-info">Akceptuję</button>
+        </div>
+
+    </div>
+    <div id="mobLock" class="overlay">
+        <div class="overlay-content">
+            Niestety Twoje użądzenie mobilne jest nieobsługiwane<br><a href="aplikacja.apk">Pobierz Aplikacje Mobilną</a>
+            <br>
         </div>
 
     </div>
