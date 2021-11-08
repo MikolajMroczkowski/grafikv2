@@ -62,17 +62,13 @@ if ($_GET) {
                 $conn->query("DELETE FROM daneDni WHERE date = '" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
                 echo "Usunięto <strong>" . $_GET['day'] . "." . $_GET['mounth'] . "." . $_GET['year'] . "</strong>";
             } else {
-                $result3 = $conn->query("SELECT * from daneDni where user=" . $_SESSION['id'] . " AND date='" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
-                if ($result3->num_rows == 0) {
-                    $result2 = $conn->query("SELECT s1.etykieta as etykieta,s1.id as id from typyDni as s1 LEFT JOIN uprawnieniaDniDlaGrup as s2 on s1.id = s2.typDnia WHERE s2.grupa=" . $_SESSION['workGroup'] . " AND s1.id =" . $_GET['typDnia']);
-                    if ($result2->num_rows > 0) {
-                        $conn->query("INSERT INTO daneDni (typeDay,user,date) VALUES (" . $_GET['typDnia'] . "," . $_SESSION['id'] . ",'" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "')");
-                        echo "Dodano <strong>" . $_GET['day'] . "." . $_GET['mounth'] . "." . $_GET['year'] . "</strong>";
-                    } else {
-                        echo 'Typ niedostępna/nieistnieje';
-                    }
+                $result2 = $conn->query("SELECT s1.etykieta as etykieta,s1.id as id from typyDni as s1 LEFT JOIN uprawnieniaDniDlaGrup as s2 on s1.id = s2.typDnia WHERE s2.grupa=" . $_SESSION['workGroup'] . " AND s1.id =" . $_GET['typDnia']);
+                if ($result2->num_rows > 0) {
+                    $conn->query("DELETE FROM daneDni WHERE date = '" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
+                    $conn->query("INSERT INTO daneDni (typeDay,user,date) VALUES (" . $_GET['typDnia'] . "," . $_SESSION['id'] . ",'" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "')");
+                    echo "Dodano <strong>" . $_GET['day'] . "." . $_GET['mounth'] . "." . $_GET['year'] . "</strong>";
                 } else {
-                    echo "Dzień <strong>" . $_GET['day'] . "." . $_GET['mounth'] . "." . $_GET['year'] . "</strong> jest pełen";
+                    echo 'Typ niedostępna/nieistnieje';
                 }
             }
         } else {
