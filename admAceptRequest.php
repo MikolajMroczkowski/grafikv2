@@ -18,7 +18,28 @@ if ($_GET) {
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $conn->query("INSERT into users (user,name,password,mail,grupaZawodowa,isAdmin,surname) values ('" . $row['user'] . "','" . $row['name'] . "','" . $row['password'] . "','" . $row['mail'] . "'," . $row['grupaZawodowa'] . ",0,'".$row['surname']."')");
+            require_once 'vendor/autoload.php';
+            $mail = new PHPMailer\PHPMailer\PHPMailer();
+            $mail->IsSMTP();
+            $mail->Mailer = "smtp";
+            $mail->SMTPDebug  = 0;
+            $mail->SMTPAuth   = TRUE;
+            $mail->SMTPSecure = "tls";
+            $mail->Port       = $smtpport;
+            $mail->Host       = $smtpserver;
+            $mail->Username   = $smtpuser;
+            $mail->Password   = $smtppass;
+            $mail->IsHTML(true);
+            $mail->AddAddress($row['mail'], $row['name']);
+            $mail->SetFrom($sendFormMail, "e-grafik by e-buda");
+            $mail->AddReplyTo($replayToMail, $replayToName);
+            $mail->Subject = "Administrator dodał towje konto";
+            $content = "<h1>Witaj <strong>" . $row['name'] . "</strong></h1><br>Piszemy żeby cię poinformować, że twoja prośba o założenie konta została zaakceptowana.<br>Dziękujemy, że jesteś z nami<br>Miłego korzystanoia i Miłego dnia<br><b>e-buda Systems</b>";
+            $mail->MsgHTML($content);
+            if (!$mail->Send()) {
+                echo 'błąd wysyłanie emial';
+            }
+            $conn->query("INSERT into users (user,name,password,mail,grupaZawodowa,isAdmin,surname) values ('" . $row['user'] . "','" . $row['name'] . "','" . $row['password'] . "','" . $row['mail'] . "'," . $row['grupaZawodowa'] . ",0,'" . $row['surname'] . "')");
             $conn->query("DELETE from akceptaction WHERE id=" . $_GET['id']);
             echo 'Akceptowano';
         }

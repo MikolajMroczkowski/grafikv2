@@ -110,7 +110,7 @@ if ($_POST) {
                 $result = $conn->query($sql);
                 if ($result->num_rows == 0) {
                     $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                    if ($conn->query("INSERT INTO akceptaction (user,mail,password,grupaZawodowa,name,surname,isAdmin) VALUES ('" . $_POST['login'] . "','" . $_POST['mail'] . "','" . $hash . "'," . $_POST['grupaZawodowa'] . ",'".$_POST['name']."','".$_POST['surname']."',0)") === TRUE) {
+                    if ($conn->query("INSERT INTO akceptaction (user,mail,password,grupaZawodowa,name,surname,isAdmin) VALUES ('" . $_POST['login'] . "','" . $_POST['mail'] . "','" . $hash . "'," . $_POST['grupaZawodowa'] . ",'" . $_POST['name'] . "','" . $_POST['surname'] . "',0)") === TRUE) {
                         echo '<script>
                         document.getElementById("grupaZawodowa").classList.add("good");
                         document.getElementById("login").classList.add("good");
@@ -121,6 +121,27 @@ if ($_POST) {
                         document.getElementById("repassword").classList.add("good");
                         document.getElementById("passErr").style.color = "#0f0";
                         document.getElementById("passErr").innerHTML = "Utworzono użytkownika<br>" </script>';
+                        require_once 'vendor/autoload.php';
+                        $mail = new PHPMailer\PHPMailer\PHPMailer();
+                        $mail->IsSMTP();
+                        $mail->Mailer = "smtp";
+                        $mail->SMTPDebug  = 0;
+                        $mail->SMTPAuth   = TRUE;
+                        $mail->SMTPSecure = "tls";
+                        $mail->Port       = $smtpport;
+                        $mail->Host       = $smtpserver;
+                        $mail->Username   = $smtpuser;
+                        $mail->Password   = $smtppass;
+                        $mail->IsHTML(true);
+                        $mail->AddAddress($_POST['mail'], $_POST['name']);
+                        $mail->SetFrom($sendFormMail, "e-grafik by e-buda");
+                        $mail->AddReplyTo($replayToMail, $replayToName);
+                        $mail->Subject = "Wysłano prośbę";
+                        $content = "<h1>Witaj <strong>" . $_POST['name'] . "</strong></h1><br>Piszemy żeby cię poinformować, że twoja prośba o założenie konta została zapisana w bazie i przekazana administratorom platformy e-grafik.<br>Dziękujemy, że jesteś z nami<br>Miłego korzystanoia i Miłego dnia<br><b>e-buda Systems</b>";
+                        $mail->MsgHTML($content);
+                        if (!$mail->Send()) {
+                            echo 'błąd wysyłanie emial';
+                        }
                     } else {
                         echo '<script>
                         document.getElementById("grupaZawodowa").classList.add("error");
