@@ -29,6 +29,7 @@ if ($_GET) {
             $mail->Host       = $smtpserver;
             $mail->Username   = $smtpuser;
             $mail->Password   = $smtppass;
+            $mail->CharSet = "UTF-8";
             $mail->IsHTML(true);
             $mail->AddAddress($row['mail'], $row['name']);
             $mail->SetFrom($sendFormMail, "e-grafik by e-buda");

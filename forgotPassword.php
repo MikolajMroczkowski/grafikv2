@@ -64,12 +64,13 @@ if ($_POST) {
                 $mail->Host       = $smtpserver;
                 $mail->Username   = $smtpuser;
                 $mail->Password   = $smtppass;
+                $mail->CharSet = "UTF-8";
                 $mail->IsHTML(true);
                 $mail->AddAddress($_POST['email'], $_SESSION['imie']);
                 $mail->SetFrom($sendFormMail, "e-grafik by e-buda");
                 $mail->AddReplyTo($replayToMail, $replayToName);
                 $mail->Subject = "Reset haslo do konta";
-                $content = "<h1>Witaj <strong>".$row['name']."</strong></h1><b>Zresetuj haslo tutaj: </b><a href='https://e-buda.eu/grafik/resetprocessor.php?usr=" . $row['id'] . "&kod=" . $kod . "'>Resetuj</a>";
+                $content = "<h1>Witaj <strong>".$row['name']."</strong></h1><b>Zresetuj hasło tutaj: </b><a href='https://e-buda.eu/grafik/resetprocessor.php?usr=" . $row['id'] . "&kod=" . $kod . "'>Resetuj</a>";
                 $mail->MsgHTML($content);
                 if (!$mail->Send()) {
                     echo '<script>showalert("Niepowodzenie","Nie udało się wysłać e-maila potwierdzajadzego","alert-danger")</script>';

@@ -133,6 +133,7 @@ if ($_POST) {
                         $mail->Username   = $smtpuser;
                         $mail->Password   = $smtppass;
                         $mail->IsHTML(true);
+                        $mail->CharSet = "UTF-8";
                         $mail->AddAddress($_POST['mail'], $_POST['name']);
                         $mail->SetFrom($sendFormMail, "e-grafik by e-buda");
                         $mail->AddReplyTo($replayToMail, $replayToName);
