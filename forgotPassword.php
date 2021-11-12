@@ -65,9 +65,9 @@ if ($_POST) {
                 $mail->Username   = $smtpuser;
                 $mail->Password   = $smtppass;
                 $mail->IsHTML(true);
-                $mail->AddAddress($_POST['email'], "Użytkownik któr");
-                $mail->SetFrom("e-grafik@e-buda.eu", "e-grafik by e-buda");
-                $mail->AddReplyTo("admin@e-buda.eu", "administracja");
+                $mail->AddAddress($_POST['email'], $_SESSION['imie']);
+                $mail->SetFrom($sendFormMail, "e-grafik by e-buda");
+                $mail->AddReplyTo($replayToMail, $replayToName);
                 $mail->Subject = "Reset haslo do konta";
                 $content = "<h1>Witaj <strong>".$row['name']."</strong></h1><b>Zresetuj haslo tutaj: </b><a href='https://e-buda.eu/grafik/resetprocessor.php?usr=" . $row['id'] . "&kod=" . $kod . "'>Resetuj</a>";
                 $mail->MsgHTML($content);

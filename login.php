@@ -83,6 +83,7 @@ if ($_POST) {
                 $_SESSION['isAdmin'] = $row['isAdmin'] == 1;
                 $_SESSION['logged'] = true;
                 $_SESSION['workGroup'] = $row['grupaZawodowa'];
+                $_SESSION['imie'] = $row['name'];
                 header("Location: index.php");
                 exit;
             }

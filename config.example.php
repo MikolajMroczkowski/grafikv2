@@ -7,3 +7,6 @@ $smtpport= 25;
 $smtpserver="";
 $smtpuser="example@example.com";
 $smtppass="";
+$sendFormMail = "example@example.com";
+$replayToMail = "xyz@e-buda.eu";
+$replayToName = "xyz";
