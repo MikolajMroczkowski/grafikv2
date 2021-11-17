@@ -1,5 +1,6 @@
 <?php
 ini_set("display_errors", 1);
+ini_set('memory_limit', '-1');
 error_reporting(E_ALL);
 session_start();
 if (!isset($_SESSION['logged']) || $_SESSION['logged'] != true) {

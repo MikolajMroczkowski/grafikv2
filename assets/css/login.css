@@ -22,9 +22,7 @@ body {
     text-align: left;
     background-color: #555;
     border-radius: 20px;
-    padding: 200px;
-    padding-top: 5%;
-    padding-bottom: 15%;
+    padding: 5% 200px 15%;
 }
 
 .passStrange {
@@ -137,6 +135,7 @@ body {
     .overlay a {
         font-size: 20px
     }
+
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;

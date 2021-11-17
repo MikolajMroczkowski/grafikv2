@@ -26,7 +26,7 @@ if(!isset($_SESSION['logged'])|| $_SESSION['logged']!=true){
         </form>
         <?php
         if($_GET){
-            require_once "config.php";
+            include "config.php";
             $conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
             if ($conn->connect_error) {
                 die('błąd bazy: ' . $conn->connect_error . '"');

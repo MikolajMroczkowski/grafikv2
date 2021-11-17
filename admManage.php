@@ -26,15 +26,22 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
 </head>
 
 <body onload="loadAdm()">
-    <?php require "menu.php";
-    renderMenu("adminManage") ?>
-    <div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
-    <div class="centered">
-        <h2 class="click"  onclick="toogleDiv('blokadyDiv','blokadyDivClick')">Blokady <img id="blokadyDivClick" src="./assets/icons/expand_more_black_24dp.svg"></h2>
-        
-        <div style="display: none;" id='blokadyDiv'>
-        <input id="dataBlokady" type="date"><input class='adminBlokadaUstawienie' type="numeric" id="month" placeholder="miesiąc"><input class='adminBlokadaUstawienie' type="numeric" id="year" placeholder="rok"> 
-        <button onclick="changeLock(document.getElementById('month').value,document.getElementById('year').value,document.getElementById('dataBlokady').value)" class="btn btn-success">Ustaw</button>
+<?php require "menu.php";
+renderMenu("adminManage") ?>
+<div class="position-absolute bottom-0 end-0" id="alert_placeholder"></div>
+<div class="centered">
+    <h2 class="click" onclick="toogleDiv('blokadyDiv','blokadyDivClick')">Blokady <img id="blokadyDivClick"
+                                                                                       src="./assets/icons/expand_more_black_24dp.svg">
+    </h2>
+
+    <div style="display: none;" id='blokadyDiv'>
+        <input id="dataBlokady" type="date"><input class='adminBlokadaUstawienie' type="numeric" id="month"
+                                                   placeholder="miesiąc"><input class='adminBlokadaUstawienie'
+                                                                                type="numeric" id="year"
+                                                                                placeholder="rok">
+        <button onclick="changeLock(document.getElementById('month').value,document.getElementById('year').value,document.getElementById('dataBlokady').value)"
+                class="btn btn-success">Ustaw
+        </button>
         <?php
         require_once "config.php";
         $conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
@@ -54,10 +61,10 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '</tr>';
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
-                echo '<td>'.$row['month'].'.'.$row['year'].'</td>';
-                echo '<td><input id="'.$row['id'].'" type="date" value="'.$row['date'].'"></td>';
-                echo '<td><button onclick="removeLock('.$row['id'].'); addLock('.$row['month'].','.$row['year'].',document.getElementById(`'.$row['id'].'`).value)" class="btn btn-success">Zapisz</button></td>';
-                echo '<td><button onclick="removeLock('.$row['id'].')" class="btn btn-danger">Usuń</button></td>';
+                echo '<td>' . $row['month'] . '.' . $row['year'] . '</td>';
+                echo '<td><input id="' . $row['id'] . '" type="date" value="' . $row['date'] . '"></td>';
+                echo '<td><button onclick="removeLock(' . $row['id'] . '); addLock(' . $row['month'] . ',' . $row['year'] . ',document.getElementById(`' . $row['id'] . '`).value)" class="btn btn-success">Zapisz</button></td>';
+                echo '<td><button onclick="removeLock(' . $row['id'] . ')" class="btn btn-danger">Usuń</button></td>';
                 echo '</tr>';
             }
             echo '</table><br>';
@@ -74,9 +81,9 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '</tr>';
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
-                echo '<td>'.$row['id'].'</td>';
-                echo '<td>'.$row['Etykieta'].'</td>';
-                echo '<td><button class="btn btn-danger" onclick="removeWorkGrup('.$row['id'].')">Usuń</buttton></td>';
+                echo '<td>' . $row['id'] . '</td>';
+                echo '<td>' . $row['Etykieta'] . '</td>';
+                echo '<td><button class="btn btn-danger" onclick="removeWorkGrup(' . $row['id'] . ')">Usuń</buttton></td>';
                 echo '</tr>';
             }
             echo '</table><br></div>';
@@ -92,11 +99,11 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '<th>Usuń</th>';
             echo '</tr>';
             while ($row = $result->fetch_assoc()) {
-                echo '<tr style="background: '.$row['kolor'].';">';
-                echo '<td>'.$row['id'].'</td>';
-                echo '<td>'.$row['etykieta'].'</td>';
-                echo '<td>'.$row['kod'].'</td>';
-                echo '<td><button class="btn btn-danger" onclick="removeDayType('.$row['id'].')">Usuń</buttton></td>';
+                echo '<tr style="background: ' . $row['kolor'] . ';">';
+                echo '<td>' . $row['id'] . '</td>';
+                echo '<td>' . $row['etykieta'] . '</td>';
+                echo '<td>' . $row['kod'] . '</td>';
+                echo '<td><button class="btn btn-danger" onclick="removeDayType(' . $row['id'] . ')">Usuń</buttton></td>';
                 echo '</tr>';
             }
             echo '</table><br></div>';
@@ -107,19 +114,19 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '<h2 class="click" onclick="toogleDiv(`uprawnieniaGrup`,`uprawnieniaGrupClick`)">Uprawnienia grup do dni <img id="uprawnieniaGrupClick" src="./assets/icons/expand_more_black_24dp.svg"></h2><div style="display: none;" id="uprawnieniaGrup">';
             echo '<select id="grupa">';
             $sql = "SELECT * from grupyZawodowe";
-        $result = $conn->query($sql);
+            $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
-                echo '<option value="'.$row['id'].'">';
+                echo '<option value="' . $row['id'] . '">';
                 echo $row['Etykieta'];
                 echo '</option>';
             }
             echo '</select>';
-            echo'do';
+            echo 'do';
             echo '<select id="dzien">';
             $sql = "SELECT * from typyDni";
-        $result = $conn->query($sql);
+            $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
-                echo '<option value="'.$row['id'].'">';
+                echo '<option value="' . $row['id'] . '">';
                 echo $row['etykieta'];
                 echo '</option>';
             }
@@ -131,12 +138,12 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '<th>Usuń</th>';
             echo '</tr>';
             $sql = "SELECT uprawnieniaDniDlaGrup.id AS uprawnienieId, grupyZawodowe.id AS grupaId, grupyZawodowe.Etykieta AS nazwaGrupy, typyDni.id AS typId, typyDni.etykieta AS nazwaTypu FROM uprawnieniaDniDlaGrup LEFT JOIN typyDni ON uprawnieniaDniDlaGrup.typDnia = typyDni.id LEFT JOIN grupyZawodowe ON uprawnieniaDniDlaGrup.grupa = grupyZawodowe.id ORDER BY uprawnieniaDniDlaGrup.id DESC";
-        $result = $conn->query($sql);
+            $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
-                echo '<td>'.$row['nazwaTypu'].' ('.$row['typId'].')</td>';
-                echo '<td>'.$row['nazwaGrupy'].' ('.$row['grupaId'].')</td>';
-                echo '<td><button class="btn btn-danger" onclick="removeAuthorization('.$row['uprawnienieId'].')">Usuń</buttton></td>';
+                echo '<td>' . $row['nazwaTypu'] . ' (' . $row['typId'] . ')</td>';
+                echo '<td>' . $row['nazwaGrupy'] . ' (' . $row['grupaId'] . ')</td>';
+                echo '<td><button class="btn btn-danger" onclick="removeAuthorization(' . $row['uprawnienieId'] . ')">Usuń</buttton></td>';
                 echo '</tr>';
             }
             echo '</table><br></div>';
@@ -151,12 +158,12 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '<th>Imię</th>';
             echo '</tr>';
             while ($row = $result->fetch_assoc()) {
-                $czas = new DateTime($row['time'],new DateTimeZone('UTC'));
-                $czas -> setTimezone(new DateTimeZone('Europe/Warsaw'));
+                $czas = new DateTime($row['time'], new DateTimeZone('UTC'));
+                $czas->setTimezone(new DateTimeZone('Europe/Warsaw'));
                 echo '<tr>';
-                echo '<td>'.$czas->format('d-m-Y H:i:s').'</td>';
-                echo '<td>'.$row['username'].'</td>';
-                echo '<td>'.$row['imie'].'</td>';
+                echo '<td>' . $czas->format('d-m-Y H:i:s') . '</td>';
+                echo '<td>' . $row['username'] . '</td>';
+                echo '<td>' . $row['imie'] . '</td>';
                 echo '</tr>';
             }
             echo '</table><br></div>';
@@ -178,14 +185,14 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '</tr>';
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
-                echo '<td>'.$row['id'].'</td>';
-                echo '<td>'.$row['username'].'</td>';
-                echo '<td>'.$row['imie'].'</td>';
-                echo '<td>'.$row['nazwisko'].'</td>';
-                echo '<td>'.$row['mail'].'</td>';
-                echo '<td>'.$row['grupaZawodowa'].'</td>';
-                echo '<td><button onclick="aceptRequest('.$row['id'].')" class="btn btn-success">Akceptuj</button></td>';
-                echo '<td><button onclick="deleteRequest('.$row['id'].')" class="btn btn-danger">Usuń</button></td>';
+                echo '<td>' . $row['id'] . '</td>';
+                echo '<td>' . $row['username'] . '</td>';
+                echo '<td>' . $row['imie'] . '</td>';
+                echo '<td>' . $row['nazwisko'] . '</td>';
+                echo '<td>' . $row['mail'] . '</td>';
+                echo '<td>' . $row['grupaZawodowa'] . '</td>';
+                echo '<td><button onclick="aceptRequest(' . $row['id'] . ')" class="btn btn-success">Akceptuj</button></td>';
+                echo '<td><button onclick="deleteRequest(' . $row['id'] . ')" class="btn btn-danger">Usuń</button></td>';
                 echo '</tr>';
             }
             echo '</table><br>';
@@ -206,13 +213,13 @@ if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != true) {
             echo '</tr>';
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
-                echo '<td>'.$row['id'].'</td>';
-                echo '<td>'.$row['username'].'</td>';
-                echo '<td>'.$row['imie'].'</td>';
-                echo '<td>'.$row['nazwisko'].'</td>';
-                echo '<td>'.$row['mail'].'</td>';
-                echo '<td>'.$row['grupaZawodowa'].'</td>';
-                echo '<td><button onclick="deleteUser('.$row['id'].')" class="btn btn-danger">Usuń</button></td>';
+                echo '<td>' . $row['id'] . '</td>';
+                echo '<td>' . $row['username'] . '</td>';
+                echo '<td>' . $row['imie'] . '</td>';
+                echo '<td>' . $row['nazwisko'] . '</td>';
+                echo '<td>' . $row['mail'] . '</td>';
+                echo '<td>' . $row['grupaZawodowa'] . '</td>';
+                echo '<td><button onclick="deleteUser(' . $row['id'] . ')" class="btn btn-danger">Usuń</button></td>';
                 echo '</tr>';
             }
             echo '</table><br></div>';
