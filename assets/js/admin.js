@@ -262,8 +262,34 @@ function loadAdm() {
     readDivs()
 }
 function createMaxVal(type,group,val){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admCreateLimitation.php?type=" + type + "&group=" + group+"&val="+val, true);
+    xmlhttp.send();
 
 }
 function removeMaxValue(id){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showalert('', this.responseText, 'alert-info');
+            setTimeout(
+                function() {
+                    location = location
+                }, 1000
+            );
+        }
+    };
+    xmlhttp.open("GET", "admRemoveLimitation.php?id=" + id, true);
+    xmlhttp.send();
 
 }
