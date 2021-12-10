@@ -261,3 +261,9 @@ function loadAdm() {
     })
     readDivs()
 }
+function createMaxVal(type,group,val){
+
+}
+function removeMaxValue(id){
+
+}

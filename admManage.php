@@ -49,7 +49,7 @@ renderMenu("adminManage") ?>
             die('<script> showalert("Błąd bazy","' . $conn->connect_error . '","alert-danger" </script>');
         }
         $conn->query("set names utf8;");
-        $sql = "SELECT * from blokada ORDER BY date DESC LIMIT 5";
+        $sql = "SELECT * from blokada ORDER BY date";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo '<table class="centered adminListing">';
@@ -70,6 +70,8 @@ renderMenu("adminManage") ?>
             echo '</table><br>';
         }
         echo "</div>";
+        $grupySelector = "";
+        $typySelector = "";
         $sql = "SELECT * FROM grupyZawodowe";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -85,6 +87,7 @@ renderMenu("adminManage") ?>
                 echo '<td>' . $row['Etykieta'] . '</td>';
                 echo '<td><button class="btn btn-danger" onclick="removeWorkGrup(' . $row['id'] . ')">Usuń</buttton></td>';
                 echo '</tr>';
+                $grupySelector .= "<option value='" . $row['id'] . "'>" . $row['Etykieta'] . "</option>";
             }
             echo '</table><br></div>';
         }
@@ -104,6 +107,29 @@ renderMenu("adminManage") ?>
                 echo '<td>' . $row['etykieta'] . '</td>';
                 echo '<td>' . $row['kod'] . '</td>';
                 echo '<td><button class="btn btn-danger" onclick="removeDayType(' . $row['id'] . ')">Usuń</buttton></td>';
+                echo '</tr>';
+                $typySelector .= "<option value='" . $row['id'] . "'>" . $row['etykieta'] . "</option>";
+            }
+            echo '</table><br></div>';
+        }
+        $sql = "SELECT M.id,M.val, G.Etykieta, T.etykieta FROM maxVal M INNER JOIN grupyZawodowe G on M.userGroup = G.id INNER JOIN typyDni T on M.type = T.id;";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo '<h2 class="click" onclick="toogleDiv(`maxValues`,`maxValuesClick`)">Wartości maksymalne <img id="maxValuesClick" src="./assets/icons/expand_more_black_24dp.svg"></h2><div style="display: none;" id="maxValues"><select id="maxTypeSelector">'.$typySelector.'</select><select id="maxGroupSelector">'.$grupySelector.'</select><input style="width: 100px;" placeholder="wartość" id="maksymalnaWartosc"> <button class="btn btn-success" onclick="createMaxVal(document.getElementById(`maxTypeSelector`).options[select.selectedIndex].value,document.getElementById(`maxGroupSelector`).options[select.selectedIndex].value,getElementById(`maksymalnaWartosc`).value)">Utwóż</button><table class="centered adminListing">';
+            echo '<tr>';
+            echo '<th>id</th>';
+            echo '<th>Grupa</th>';
+            echo '<th>Typ</th>';
+            echo '<th>Wartość</th>';
+            echo '<th>Usuń</th>';
+            echo '</tr>';
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                echo '<td>' . $row['id'] . '</td>';
+                echo '<td>' . $row['Etykieta'] . '</td>';
+                echo '<td>' . $row['etykieta'] . '</td>';
+                echo '<td>' . $row['val'] . '</td>';
+                echo '<td><button class="btn btn-danger" onclick="removeMaxValue(' . $row['id'] . ')">Usuń</buttton></td>';
                 echo '</tr>';
             }
             echo '</table><br></div>';
