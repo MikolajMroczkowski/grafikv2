@@ -132,8 +132,8 @@ renderMenu("adminManage") ?>
                 echo '<td><button class="btn btn-danger" onclick="removeMaxValue(' . $row['id'] . ')">Usuń</buttton></td>';
                 echo '</tr>';
             }
-            echo '</table><br></div>';
         }
+        echo '</table><br></div>';
         $sql = "SELECT * from typyDni";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
