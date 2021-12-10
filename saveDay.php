@@ -27,7 +27,7 @@ if ($_GET) {
             $yearA = $_GET['year'];
             $dayBlokady = 20;
             $ostatni = strtotime($dayBlokady . "-" . $monthA . "-" . $yearA);
-            $dzienSlowo =  date('l', $ostatni);
+            $dzienSlowo = date('l', $ostatni);
             switch (substr($dzienSlowo, 0, 3)) {
                 case "Mon":
                     $blank = 3;
@@ -59,12 +59,32 @@ if ($_GET) {
         }
         if (!$blokada) {
             if ($_GET['typDnia'] == 'REMOVE') {
-                $conn->query("DELETE FROM daneDni WHERE user=".$_SESSION['id']." AND date = '" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
+                $conn->query("DELETE FROM daneDni WHERE user=" . $_SESSION['id'] . " AND date = '" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
                 echo "Usunięto <strong>" . $_GET['day'] . "." . $_GET['mounth'] . "." . $_GET['year'] . "</strong>";
             } else {
+                $zajetosci = "";
+                $zajetosciVal = 0;
+                $maxForType = 0;
+                $result = $conn->query("SELECT U.name, U.surname FROM daneDni D INNER JOIN users U on D.user = U.id WHERE U.grupaZawodowa = " . $_SESSION['grupaZawodowa'] . " AND D.typeDay = " . $_GET['typDnia'] . " AND D.date='" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $obj =  '\r\n'.$row["name"]." ".$row["surname"];
+                        $zajetosciVal += 1;
+                        $zajetosci .= $obj;
+                    }
+                }
+                $resultMax = $conn->query("SELECT val FROM maxVal WHERE userGroup=" . $_SESSION['grupaZawodowa'] . " AND type=" . $_GET['typDnia']);
+                if ($resultMax->num_rows > 0) {
+                    while($row = $resultMax->fetch_assoc()) {
+                        $maxForType = $row['val'];
+                    }
+                    if ($maxForType <= $zajetosciVal) {
+                        die('<script>alert("ZAJĘTOŚĆ!'.$zajetosci.'")</script>Zajętość!');
+                    }
+                }
                 $result2 = $conn->query("SELECT s1.etykieta as etykieta,s1.id as id from typyDni as s1 LEFT JOIN uprawnieniaDniDlaGrup as s2 on s1.id = s2.typDnia WHERE s2.grupa=" . $_SESSION['workGroup'] . " AND s1.id =" . $_GET['typDnia']);
                 if ($result2->num_rows > 0) {
-                    $conn->query("DELETE FROM daneDni WHERE user=".$_SESSION['id']." AND date = '" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
+                    $conn->query("DELETE FROM daneDni WHERE user=" . $_SESSION['id'] . " AND date = '" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
                     $conn->query("INSERT INTO daneDni (typeDay,user,date) VALUES (" . $_GET['typDnia'] . "," . $_SESSION['id'] . ",'" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "')");
                     echo "Dodano <strong>" . $_GET['day'] . "." . $_GET['mounth'] . "." . $_GET['year'] . "</strong>";
                 } else {
