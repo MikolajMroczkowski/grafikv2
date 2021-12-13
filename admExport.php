@@ -69,7 +69,7 @@ if ($_GET) {
         die('błąd');
     }
     $conn->query("set names utf8;");
-    $sql = "SELECT typyDni.kod as wartosc, DAY(daneDni.date) as kolumna,  usersTableRow.wiersz as wiersz FROM daneDni INNER JOIN usersTableRow ON daneDni.user = usersTableRow.user INNER JOIN typyDni ON daneDni.typeDay=typyDni.id WHERE daneDni.date BETWEEN '1." . $mc . "." . $year . "' AND '31." . $mc . "." . $year . "'";
+    $sql = "SELECT typyDni.kod as wartosc, DAY(daneDni.date) as kolumna,  usersTableRow.wiersz as wiersz FROM daneDni INNER JOIN usersTableRow ON daneDni.user = usersTableRow.user INNER JOIN typyDni ON daneDni.typeDay=typyDni.id WHERE daneDni.date BETWEEN '" . $year . "-" . $mc . "-1' AND '" . $year . "-" . $mc . "-31'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
