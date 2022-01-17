@@ -39,7 +39,7 @@ renderMenu("adminManage") ?>
                                                    placeholder="miesiąc"><input class='adminBlokadaUstawienie'
                                                                                 type="numeric" id="year"
                                                                                 placeholder="rok">
-        <button onclick="changeLock(document.getElementById('month').value,document.getElementById('year').value,document.getElementById('dataBlokady').value)"
+        <button onclick="addLock(document.getElementById('month').value,document.getElementById('year').value,document.getElementById('dataBlokady').value)"
                 class="btn btn-success">Ustaw
         </button>
         <?php
