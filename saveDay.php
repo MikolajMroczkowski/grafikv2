@@ -82,7 +82,7 @@ if ($_GET) {
                         die('<script>alert("ZAJĘTOŚĆ!'.$zajetosci.'")</script>Zajętość!');
                     }
                 }
-                $result2 = $conn->query("SELECT s1.etykieta as etykieta,s1.id as id from typyDni as s1 LEFT JOIN uprawnieniaDniDlaGrup as s2 on s1.id = s2.typDnia WHERE s2.grupa=" . $_SESSION['workGroup'] . " AND s1.id =" . $_GET['typDnia']);
+                $result2 = $conn->query("SELECT s1.etykieta as etykieta,s1.id as id from typyDni as s1 LEFT JOIN uprawnieniaDniDlaGrup as s2 on s1.id = s2.typDnia WHERE s2.grupa=" . $_SESSION['grupaZawodowa'] . " AND s1.id =" . $_GET['typDnia']);
                 if ($result2->num_rows > 0) {
                     $conn->query("DELETE FROM daneDni WHERE user=" . $_SESSION['id'] . " AND date = '" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "'");
                     $conn->query("INSERT INTO daneDni (typeDay,user,date) VALUES (" . $_GET['typDnia'] . "," . $_SESSION['id'] . ",'" . $_GET['year'] . "-" . $_GET['mounth'] . "-" . $_GET['day'] . "')");

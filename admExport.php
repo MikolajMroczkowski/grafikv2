@@ -31,6 +31,10 @@ if ($_GET) {
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
     }
     $mcPL = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
+    $maxMcDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+    if($year%4==0){
+        $maxMcDays[1] = 29;
+    }
     $litery = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH","AI","AJ","AK");
     for ($x = 1; $x < 31; $x++) {
         $dataKomurki = strtotime($x . "." . $mc . "." . $year);
@@ -69,7 +73,7 @@ if ($_GET) {
         die('błąd');
     }
     $conn->query("set names utf8;");
-    $sql = "SELECT typyDni.kod as wartosc, DAY(daneDni.date) as kolumna,  usersTableRow.wiersz as wiersz FROM daneDni INNER JOIN usersTableRow ON daneDni.user = usersTableRow.user INNER JOIN typyDni ON daneDni.typeDay=typyDni.id WHERE daneDni.date BETWEEN '" . $year . "-" . $mc . "-1' AND '" . $year . "-" . $mc . "-31'";
+    $sql = "SELECT typyDni.kod as wartosc, DAY(daneDni.date) as kolumna,  usersTableRow.wiersz as wiersz FROM daneDni INNER JOIN usersTableRow ON daneDni.user = usersTableRow.user INNER JOIN typyDni ON daneDni.typeDay=typyDni.id WHERE daneDni.date BETWEEN '" . $year . "-" . $mc . "-1' AND '" . $year . "-" . $mc . "-".$maxMcDays[$mc-1]."'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
